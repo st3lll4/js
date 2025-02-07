@@ -1,8 +1,8 @@
 # icd0024-24-25-s
 
-tere__
+tere
 
-nimi > stella tukia__
-koolimeil: sttuki@taltech.ee__
-uni-id > sttuki__
+nimi > stella tukia
+koolimeil: sttuki@taltech.ee
+uni-id > sttuki
 tudengikood > 233202iadb
