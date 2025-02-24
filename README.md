@@ -6,3 +6,5 @@ nimi > stella tukia <br>
 koolimeil: sttuki@taltech.ee <br>
 uni-id > sttuki <br>
 tudengikood > 233202iadb
+
+// git push -u github main
