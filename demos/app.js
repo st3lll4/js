@@ -10,11 +10,15 @@ let buttons = UI.getButtons(game);
 document.body.appendChild(buttons);
 
 function updateInfo(x, y, e) {
-    if (game.makeAMove(x, y) === false) {
-        alert("error");
-    } else {
+    if (game.board[x][y] === undefined) {
+        game.makeAMove(x, y, updateInfo);
         e.target.innerHTML = game.board[x][y] || "&nbsp;";
-    } //tere
+        console.log("why does it get here");
+    } else if (game.board[x][y] === game.movingPlayer) {
+        e.target.innerHTML = "&nbsp;";
+    } else {
+        game.showMoveError();
+    }
 }
 
 export function updateBoard() {
@@ -28,4 +32,3 @@ export function updateBoard() {
 
 let board = UI.getBoard(game, game.board, updateInfo);
 document.body.appendChild(board);
-

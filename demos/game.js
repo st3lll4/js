@@ -25,8 +25,9 @@ export class GameBrain {
                 this.OPieces = this.OPieces - 1;
             }
             this.switchPlayer();
-            return true;
-        } return false;
+        } else {
+            this.showMoveError();
+        }
     }
 
     isInGrid(x, y) {
@@ -37,6 +38,8 @@ export class GameBrain {
         if (this.gridStartY > 0) {
             this.gridStartY--;
             this.switchPlayer();
+        } else {
+            this.showMoveError();
         }
     }
 
@@ -44,6 +47,8 @@ export class GameBrain {
         if (this.gridStartY + 3 < 5) {
             this.gridStartY++;
             this.switchPlayer();
+        } else {
+            this.showMoveError();
         }
     }
 
@@ -51,6 +56,8 @@ export class GameBrain {
         if (this.gridStartX > 0) {
             this.gridStartX--;
             this.switchPlayer();
+        } else {
+            this.showMoveError();
         }
     }
 
@@ -58,10 +65,17 @@ export class GameBrain {
         if (this.gridStartX + 3 < 5) {
             this.gridStartX++;
             this.switchPlayer();
+        } else {
+            this.showMoveError();
         }
     }
 
-    switchPlayer() { 
+    showMoveError() {
+        alert("You cant move there lil bro.");
+    }
+
+    switchPlayer() {
         this.movingPlayer = this.movingPlayer === "X" ? "O" : "X";
     }
+
 }
