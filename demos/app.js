@@ -14,7 +14,7 @@ function updateInfo(x, y, e) {
         alert("error");
     } else {
         e.target.innerHTML = game.board[x][y] || "&nbsp;";
-    } 
+    } //tere
 }
 
 export function updateBoard() {
