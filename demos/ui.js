@@ -13,6 +13,14 @@ export function getBoard(game, gameBoard, updateInfo) {
     board.classList.add("board");
     board.id = "board";
 
+    let info = document.createElement("div");
+    info.classList.add("row");
+    info.classList.add("info");
+    info.innerHTML = "moving: " + game.movingPlayer;
+    info.innerHTML += " | X pieces left: " + game.xPieces;
+    info.innerHTML += " | O pieces left: " + game.OPieces;
+    board.appendChild(info);
+
     for (let i = 0; i < 5; i++) {
         let row = document.createElement("div");
         row.classList.add("row");
@@ -24,25 +32,17 @@ export function getBoard(game, gameBoard, updateInfo) {
             }
             col.addEventListener("click", (event) => { updateInfo(i, j, event); });
 
-            col.innerHTML = gameBoard[i][j] || "  ";
+            col.innerHTML = gameBoard[i][j] || " ";
             row.appendChild(col); // Append column to row
         }
         board.appendChild(row); // Append row to board
     }
-
     return board;
 }
 
-export function getErrorbox() {
-    let h3 = document.createElement("h3");
-    h3.classList.add("row");
-    h3.id = "error";
-    return h3;
-}
-
 export function getButtons(game) {
-    let buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("row");
+    let buttons = document.createElement("div");
+    buttons.classList.add("row");
 
     let buttonLeft = document.createElement("div");
     buttonLeft.classList.add("small-btn");
@@ -54,7 +54,7 @@ export function getButtons(game) {
         app.updateBoard();
     });
 
-    buttonContainer.appendChild(buttonLeft);
+    buttons.appendChild(buttonLeft);
 
     let buttonRight = document.createElement("div");
     buttonRight.classList.add("small-btn");
@@ -66,7 +66,7 @@ export function getButtons(game) {
         app.updateBoard();
     });
 
-    buttonContainer.appendChild(buttonRight);
+    buttons.appendChild(buttonRight);
 
     let buttonUp = document.createElement("div");
     buttonUp.classList.add("small-btn");
@@ -78,7 +78,7 @@ export function getButtons(game) {
         app.updateBoard();
     });
 
-    buttonContainer.appendChild(buttonUp);
+    buttons.appendChild(buttonUp);
 
     let buttonDown = document.createElement("div");
     buttonDown.classList.add("small-btn");
@@ -89,10 +89,8 @@ export function getButtons(game) {
         game.moveDown();
         app.updateBoard();
     });
+    buttons.appendChild(buttonDown);
 
-    buttonContainer.appendChild(buttonDown);
-
-    
-
-    return buttonContainer;
+    return buttons;
 }
+

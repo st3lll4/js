@@ -11,14 +11,15 @@ document.body.appendChild(buttons);
 
 function updateInfo(x, y, e) {
     if (game.board[x][y] === undefined) {
-        game.makeAMove(x, y, updateInfo);
+        game.makeAMove(x, y);
         e.target.innerHTML = game.board[x][y] || "&nbsp;";
-        console.log("why does it get here");
     } else if (game.board[x][y] === game.movingPlayer) {
-        e.target.innerHTML = "&nbsp;";
+        game.removePiece(x, y)
+        // somehow make it impossible to move the grid when this has been
     } else {
         game.showMoveError();
-    }
+    }            
+    updateBoard();
 }
 
 export function updateBoard() {
