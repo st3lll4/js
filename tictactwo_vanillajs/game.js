@@ -229,6 +229,4 @@ export class GameBrain {
         this.gridStartY = 1;
         this.moveMade = false;
     }
-
-
 }
