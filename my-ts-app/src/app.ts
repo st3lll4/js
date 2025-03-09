@@ -3,17 +3,13 @@ import * as UI from "./ui";
 
 let game : GameBrain = new GameBrain();
 
-let header : HTMLHeadingElement = UI.getHeader();
-document.body.appendChild(header);
-
-let timer : HTMLDivElement = UI.getTimer(game);
-document.body.appendChild(timer);
-
-let buttons : HTMLDivElement = UI.getButtons(game);
-document.body.appendChild(buttons);
-
-let board : HTMLDivElement = UI.getBoard(game, game.board, updateInfo);
-document.body.appendChild(board);
+export function updateBoard(): void {
+    let oldBoard: HTMLElement | null = document.getElementById("board");
+    if (oldBoard) {
+        let newBoard: HTMLElement = UI.getBoard(game, game.board, updateInfo);
+        oldBoard.replaceWith(newBoard);
+    }
+}
 
 function updateInfo(x : number, y : number, e : MouseEvent) : void {
     if (game.board[x][y] === undefined) {
@@ -51,12 +47,15 @@ export function handleAIMove() : void {
     }
 }
 
-export function updateBoard() : void {
-    let oldBoard : HTMLElement | null = document.getElementById("board");
-    if (oldBoard) {
-        oldBoard.remove();
-    }
-    let newBoard : HTMLElement = UI.getBoard(game, game.board, updateInfo);
-    document.body.appendChild(newBoard);
-    
-}
+//kaitsmisel tahan kysida: kui mul see on commented out, why on earth ma saan 2 boardi, kui javascriptisoli koik fine
+// let header : HTMLHeadingElement = UI.getHeader();
+// document.body.appendChild(header);
+
+// let timer : HTMLDivElement = UI.getTimer(game);
+// document.body.appendChild(timer);
+
+// let buttons : HTMLDivElement = UI.getButtons(game);
+// document.body.appendChild(buttons);
+
+// let board : HTMLDivElement = UI.getBoard(game, game.board, updateInfo);
+// document.body.appendChild(board);

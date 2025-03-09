@@ -9,7 +9,7 @@ export function getHeader() : HTMLHeadingElement {
     return h1;
 }
 
-export function getBoard(game: GameBrain, gameBoard: (Player | undefined)[][], 
+export function getBoard(game: GameBrain, gameBoard: (Player | null)[][], 
         updateInfo: (x: number, y: number, e: MouseEvent) => void)  : HTMLDivElement {
     let board : HTMLDivElement = document.createElement("div");
     board.classList.add("board");
@@ -123,10 +123,10 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
     wrapper.appendChild(timerElement);
     timerElement.textContent = countdown.toString();
 
-    let timerInterval : number = 0;
+    let timerInterval : any = null;
 
     function startTimer() : void {
-        if (timerInterval != 0) {
+        if (timerInterval) {
             clearInterval(timerInterval);
         }
         timerInterval = setInterval(() => {
@@ -149,7 +149,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
             }
             if (game.gameOver) {
                 clearInterval(timerInterval);
-                timerInterval = 0;
+                timerInterval = null;
             }
         }, 1000);
     }
@@ -157,7 +157,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
     function stopTimer() : void {
         if (timerInterval) {
             clearInterval(timerInterval);
-            timerInterval = 0;
+            timerInterval = null;
         }
         countdown = 5;
         timerElement.textContent = countdown.toString();
@@ -165,7 +165,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
 
     let startButton : HTMLDivElement = document.createElement("div");
     startButton.classList.add("small-btn", "big-btn", "m-3");
-    startButton.innerHTML = "start timer";
+    startButton.innerHTML = "press to start timer";
 
     let resetButton : HTMLDivElement = document.createElement("div");
     resetButton.classList.add("small-btn", "big-btn", "m-3");
