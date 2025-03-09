@@ -93,9 +93,9 @@ export function getTimer(game) {
     timerElement.classList.add("small-btn", "timer");
     wrapper.appendChild(timerElement);
     timerElement.textContent = countdown.toString();
-    let timerInterval = 0;
+    let timerInterval = undefined;
     function startTimer() {
-        if (timerInterval != 0) {
+        if (timerInterval) {
             clearInterval(timerInterval);
         }
         timerInterval = setInterval(() => {
@@ -116,21 +116,21 @@ export function getTimer(game) {
             }
             if (game.gameOver) {
                 clearInterval(timerInterval);
-                timerInterval = 0;
+                timerInterval = undefined;
             }
         }, 1000);
     }
     function stopTimer() {
         if (timerInterval) {
             clearInterval(timerInterval);
-            timerInterval = 0;
+            timerInterval = undefined;
         }
         countdown = 5;
         timerElement.textContent = countdown.toString();
     }
     let startButton = document.createElement("div");
     startButton.classList.add("small-btn", "big-btn", "m-3");
-    startButton.innerHTML = "start timer";
+    startButton.innerHTML = "press to start timer";
     let resetButton = document.createElement("div");
     resetButton.classList.add("small-btn", "big-btn", "m-3");
     resetButton.style.backgroundColor = "#e74c3c";

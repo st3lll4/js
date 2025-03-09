@@ -2,16 +2,13 @@ import { GameBrain } from "./game";
 import * as UI from "./ui";
 let game = new GameBrain();
 let header = UI.getHeader();
+document.body.appendChild(header);
 let timer = UI.getTimer(game);
+document.body.appendChild(timer);
 let buttons = UI.getButtons(game);
+document.body.appendChild(buttons);
 let board = UI.getBoard(game, game.board, updateInfo);
-let container = document.createElement("div");
-container.id = "game-container";
-container.appendChild(header);
-container.appendChild(timer);
-container.appendChild(buttons);
-container.appendChild(board);
-document.body.appendChild(container);
+document.body.appendChild(board);
 export function updateBoard() {
     let oldBoard = document.getElementById("board");
     if (oldBoard) {
