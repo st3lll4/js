@@ -9,7 +9,7 @@ export function getHeader() : HTMLHeadingElement {
     return h1;
 }
 
-export function getBoard(game: GameBrain, gameBoard: (Player | null)[][], 
+export function getBoard(game: GameBrain, gameBoard: (Player | undefined)[][], 
         updateInfo: (x: number, y: number, e: MouseEvent) => void)  : HTMLDivElement {
     let board : HTMLDivElement = document.createElement("div");
     board.classList.add("board");
@@ -123,7 +123,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
     wrapper.appendChild(timerElement);
     timerElement.textContent = countdown.toString();
 
-    let timerInterval : any = null;
+    let timerInterval : number | undefined = undefined;
 
     function startTimer() : void {
         if (timerInterval) {
@@ -149,7 +149,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
             }
             if (game.gameOver) {
                 clearInterval(timerInterval);
-                timerInterval = null;
+                timerInterval = undefined;
             }
         }, 1000);
     }
@@ -157,7 +157,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
     function stopTimer() : void {
         if (timerInterval) {
             clearInterval(timerInterval);
-            timerInterval = null;
+            timerInterval = undefined;
         }
         countdown = 5;
         timerElement.textContent = countdown.toString();
