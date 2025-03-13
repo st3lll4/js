@@ -1,20 +1,23 @@
 import { GameBrain } from "./game";
 import * as UI from "./ui";
 let game = new GameBrain();
-let header = UI.getHeader();
-document.body.appendChild(header);
-let timer = UI.getTimer(game);
-document.body.appendChild(timer);
-let buttons = UI.getButtons(game);
-document.body.appendChild(buttons);
-let board = UI.getBoard(game, game.board, updateInfo);
-document.body.appendChild(board);
+function initializeUI() {
+    let header = UI.getHeader();
+    document.body.appendChild(header);
+    let timer = UI.getTimer(game);
+    document.body.appendChild(timer);
+    let buttons = UI.getButtons(game);
+    document.body.appendChild(buttons);
+    let board = UI.getBoard(game, game.board, updateInfo);
+    document.body.appendChild(board);
+}
 export function updateBoard() {
     let oldBoard = document.getElementById("board");
     if (oldBoard) {
-        let newBoard = UI.getBoard(game, game.board, updateInfo);
-        oldBoard.replaceWith(newBoard);
+        oldBoard.remove();
     }
+    let newBoard = UI.getBoard(game, game.board, updateInfo);
+    document.body.appendChild(newBoard);
 }
 function updateInfo(x, y, e) {
     if (game.board[x][y] === undefined) {
@@ -48,8 +51,8 @@ export function handleAIMove() {
                     console.log(winner);
                 }, 100);
             }
-            updateBoard();
         }, 1000);
     }
 }
+initializeUI();
 //# sourceMappingURL=app.js.map

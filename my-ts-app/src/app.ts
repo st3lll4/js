@@ -18,9 +18,10 @@ document.body.appendChild(board);
 export function updateBoard(): void {
     let oldBoard: HTMLElement | null = document.getElementById("board");
     if (oldBoard) {
-        let newBoard: HTMLElement = UI.getBoard(game, game.board, updateInfo);
-        oldBoard.replaceWith(newBoard);
+        oldBoard.remove();
     }
+    let newBoard: HTMLElement = UI.getBoard(game, game.board, updateInfo);
+    document.body.appendChild(newBoard);
 }
 
 function updateInfo(x : number, y : number, e : MouseEvent) : void {
@@ -54,7 +55,7 @@ export function handleAIMove() : void {
                     console.log(winner);
                 }, 100);
             }
-            updateBoard(); // redundant?
+
         }, 1000);
     }
 }
