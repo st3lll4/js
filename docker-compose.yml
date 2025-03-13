@@ -1,7 +1,8 @@
 services:
   postgres:
-    container_name: "stella"
-    image: postgres    
+    container_name: "postgres"
+    # https://github.com/baosystems/docker-postgis/pkgs/container/postgis
+    image: ghcr.io/baosystems/postgis:16
     command: postgres -c 'max_connections=1000'
     restart: unless-stopped
     environment:
