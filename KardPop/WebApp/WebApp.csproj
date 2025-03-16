@@ -20,4 +20,9 @@
       <ProjectReference Include="..\App.DAL.EF\App.DAL.EF.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\styles\css\navbar.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\styles\css\navbar.css.map" />
+    </ItemGroup>
+
 </Project>
