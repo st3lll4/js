@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.DAL.EF;
 
-public class AppDbContext : IdentityDbContext
+public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -32,7 +32,8 @@ public class AppDbContext : IdentityDbContext
     public DbSet<Person> Persons { get; set; } = default!;
     public DbSet<ProfilePhoto> ProfilePhotos { get; set; } = default!;
     public DbSet<Sale> Sales { get; set; } = default!;
-    public DbSet<User> Users { get; set; } = default!;
+    public DbSet<AppUser> AppUsers { get; set; } = default!;
+    public DbSet<AppRole> AppRoles { get; set; } = default!;
     public DbSet<Wishlist> Wishlists { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +54,10 @@ public class AppDbContext : IdentityDbContext
         
         modelBuilder.Entity<DeliveryOptionPrice>()
             .Property(cp => cp.Currency)
+            .HasConversion<string>();
+        
+        modelBuilder.Entity<ContactType>()
+            .Property(cp => cp.ContactTypeName)
             .HasConversion<string>();
     }
 }

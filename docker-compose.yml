@@ -1,13 +1,18 @@
 services:
+  # demo:
+  #   image: nginxdemos/hello
+  #   container_name: ngiinx
+  #   ports:
+  #     - 80:80
+
   postgres:
     container_name: "postgres"
-    # https://github.com/baosystems/docker-postgis/pkgs/container/postgis
-    image: ghcr.io/baosystems/postgis:16
+    image: postgres    
     command: postgres -c 'max_connections=1000'
     restart: unless-stopped
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     volumes:

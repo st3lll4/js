@@ -1,8 +1,10 @@
 using System.Globalization;
 using App.DAL.EF;
+using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using Npgsql;
 
@@ -17,13 +19,40 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 NpgsqlConnection.GlobalTypeMapper.EnableDynamicJson();
 #pragma warning restore CS0618 // Type or member is obsolete
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+// Console.Write(builder.Environment.EnvironmentName); ns 
+
+if (builder.Environment.IsProduction())
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(
+            connectionString,
+            o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery
+            ) // optimization by npgsql
+        )
+    );
+}
+else
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(
+                    connectionString,
+                    o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery
+                    ) // optimization by npgsql
+                )
+                .ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))
+                // punishes you for querying a cartesian explosion and creates a warning 
+                .EnableDetailedErrors()
+                .EnableSensitiveDataLogging() // see values that are used in sql queries
+    );
+}
+
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(
-        options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddIdentity<AppUser, AppRole>(o => o.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 
 builder.Services.AddControllersWithViews();
 
@@ -44,17 +73,16 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     // if nothing is found, use this
     options.DefaultRequestCulture =
         new RequestCulture(
-            builder.Configuration["DefaultCulture"]!, 
+            builder.Configuration["DefaultCulture"]!,
             builder.Configuration["DefaultCulture"]!);
     options.SetDefaultCulture(builder.Configuration["DefaultCulture"]!);
 
     options.RequestCultureProviders = new List<IRequestCultureProvider>
     {
         // Order is important, it's in which order they will be evaluated
-        // add support for ?culture=ru-RU
         new QueryStringRequestCultureProvider(),
         new CookieRequestCultureProvider(),
-       };
+    };
 });
 
 var app = builder.Build();

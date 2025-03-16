@@ -5,7 +5,7 @@ namespace Domain;
 
 public class ContactType : BaseEntity
 {
-    [MaxLength(128)] public string ContactTypeName { get; set; } = default!;
+    [MaxLength(128)] public EContactType ContactTypeName { get; set; } = default!;
     
     public ICollection<Contact>? Contacts { get; set; } 
 }

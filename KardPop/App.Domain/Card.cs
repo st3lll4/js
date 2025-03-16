@@ -12,7 +12,7 @@ public class Card : BaseEntity
     public DateTime? DeletedAt { get; set; }
     
     public Guid UserId { get; set; }
-    public User? User { get; set; }
+    public AppUser? User { get; set; }
     
     public Guid CardTypeId { get; set; }
     public CardType? CardType { get; set; }
