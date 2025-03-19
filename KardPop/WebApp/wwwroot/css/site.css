@@ -10,6 +10,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+body .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);

@@ -2,5 +2,9 @@
   "devDependencies": {
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.14",
+    "tailwindcss": "^4.0.14"
   }
 }

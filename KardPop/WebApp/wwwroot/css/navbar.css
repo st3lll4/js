@@ -32,4 +32,11 @@ nav {
 .icon:hover {
   background-color: #3A74D9;
   color: white;
+  border: 1px white;
+}
+
+nav .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }

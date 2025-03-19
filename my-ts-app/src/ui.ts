@@ -12,7 +12,7 @@ export function getHeader() : HTMLHeadingElement {
 export function getBoard(game: GameBrain, gameBoard: (Player | undefined)[][], 
         updateInfo: (x: number, y: number, e: MouseEvent) => void)  : HTMLDivElement {
     let board : HTMLDivElement = document.createElement("div");
-    board.classList.add("board");
+    board.classList.add("board"); 
     board.id = "board";
 
     let info : HTMLDivElement = document.createElement("div");

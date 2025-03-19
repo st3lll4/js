@@ -7,19 +7,3 @@ koolimeil: sttuki@taltech.ee <br>
 uni-id > sttuki <br>
 tudengikood > 233202iadb
 
-
-
-
-
-
-
-
-
-
-
-
-
-
------------------------
-git push -u github main
-git push -u origin main
