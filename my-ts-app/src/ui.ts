@@ -1,4 +1,4 @@
-import * as app from "./app";
+import { updateBoard, handleAIMove } from "./app"; 
 import { GameBrain, type Player } from "./game";
 
 export function getHeader() : HTMLHeadingElement {
@@ -50,8 +50,8 @@ export function getButtons(game : GameBrain) : HTMLDivElement {
 
     buttonLeft.addEventListener("click", () => {
         game.moveLeft();
-        app.updateBoard();
-        app.handleAIMove();
+        updateBoard();
+        handleAIMove();
     });
 
     buttons.appendChild(buttonLeft);
@@ -62,8 +62,8 @@ export function getButtons(game : GameBrain) : HTMLDivElement {
 
     buttonRight.addEventListener("click", () => {
         game.moveRight();
-        app.updateBoard();
-        app.handleAIMove();
+        updateBoard();
+        handleAIMove();
     });
 
     buttons.appendChild(buttonRight);
@@ -74,8 +74,8 @@ export function getButtons(game : GameBrain) : HTMLDivElement {
 
     buttonUp.addEventListener("click", () => {
         game.moveUp();
-        app.updateBoard();
-        app.handleAIMove();
+        updateBoard();
+        handleAIMove();
     });
 
     buttons.appendChild(buttonUp);
@@ -86,8 +86,8 @@ export function getButtons(game : GameBrain) : HTMLDivElement {
 
     buttonDown.addEventListener("click", () => {
         game.moveDown();
-        app.updateBoard();
-        app.handleAIMove();
+        updateBoard();
+        handleAIMove();
     });
     buttons.appendChild(buttonDown);
 
@@ -112,7 +112,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
     modeSwitch.addEventListener("click", () => {
         game.toggleGameMode();
         updateModeButton();
-        app.updateBoard();
+        updateBoard();
     });
 
     wrapper.appendChild(modeSwitch);
@@ -141,10 +141,10 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
             } else if (countdown === 0) {
                 alert("you didnt move, sleepy! switching players")
                 game.switchPlayer();
-                app.updateBoard();
+                updateBoard();
                 countdown = 5;
                 timerElement.textContent = countdown.toString();
-                app.handleAIMove();
+                handleAIMove();
 
             }
             if (game.gameOver) {
@@ -177,7 +177,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
             game.gameOn = true;
             game.gameOver = false;
             startTimer();
-            app.updateBoard();
+            updateBoard();
         }
     }
     );
@@ -185,7 +185,7 @@ export function getTimer(game : GameBrain) : HTMLDivElement {
     resetButton.addEventListener("click", () => {
         game.resetGame();
         stopTimer();
-        app.updateBoard();
+        updateBoard();
     }
     );
 

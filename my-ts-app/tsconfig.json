@@ -11,7 +11,8 @@
     "experimentalDecorators": true,
     "removeComments": true,
     "moduleResolution": "node",
-    "lib": ["ES5", "ES6", "ES7", "ES2017", "ES2018", "ES2019", "ES2020", "ESNext", "DOM", "DOM.Iterable"]
+    "lib": ["ES5", "ES6", "ES7", "ES2017", "ES2018", "ES2019", "ES2020", "ESNext", "DOM", "DOM.Iterable"],
+    "outDir": "dist"
   },
   "include": ["global.d.ts", "./src/**/*"],
   "exclude": ["node_modules"]
