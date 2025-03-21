@@ -7,5 +7,5 @@ koolimeil: sttuki@taltech.ee <br>
 uni-id > sttuki <br>
 tudengikood > 233202iadb
 --------
-https://st3lll4.github.io/js/vanillajs/
+https://st3lll4.github.io/js/vanillajs/ <br>
 https://st3lll4.github.io/js/my-ts-app/dist/
