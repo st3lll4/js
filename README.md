@@ -4,7 +4,7 @@ tere <br>
 see on minu icd0024 repo
 -------
 nimi > stella tukia <br>
-koolimeil: sttuki@taltech.ee <br>
+koolimeil > sttuki@taltech.ee <br>
 uni-id > sttuki <br>
 tudengikood > 233202iadb
 --------
