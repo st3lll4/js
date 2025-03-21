@@ -3,11 +3,11 @@ body {
 }
 
 :root {
-  --some-pink: #D56AA0;
-  --dark-pink: #ff1b63;
-  --darker: #861657;
-  --lighter: #FCF0CC;
-  --button: #A64253;
+  --green: #047076;
+  --dark-pink: #E4B4B4;
+  --darker: #1E3739;
+  --lighter: #A2D6DD;
+  --button: #E4B4B4;
 }
 
 .row {
@@ -51,11 +51,11 @@ body {
 
 .timer {
   min-width: 8rem;
-  background-color: rgb(255, 88, 127);
+  background-color: #E4B4B4;
 }
 
 .grid-sq {
-  background-color: var(--some-pink);
+  background-color: var(--green);
 }
 
 .grid {
@@ -64,14 +64,14 @@ body {
 
 .info { 
   margin: 1rem;
-  color: var(--darker);
+  color: var(--green);
   font-weight: bold;
 }
 
 #title {
   margin-top: 2rem;
   font-weight: bolder;
-  color: var(--darker);
+  color: var(--green);
 }
 
 .card {
