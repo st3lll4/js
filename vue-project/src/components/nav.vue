@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { useUserDataStore } from '../stores/userDataStore';
-import { RouterLink, useRouter } from 'vue-router';
-const router = useRouter()
-
-const store = useUserDataStore();
+import { useUserDataStore } from '../stores/userstore';
+import '../assets/style.css'
 
 </script>
 
@@ -20,15 +17,7 @@ const store = useUserDataStore();
           <li class="nav-item">
             <RouterLink class="nav-link" to="/">Home</RouterLink>
           </li>
-          <li v-if="store.email.length > 0" class="nav-item">
-            <RouterLink class="nav-link" to="/page1">Page1</RouterLink>
-          </li>
-          <li v-if="store.email.length > 0" class="nav-item">
-            <RouterLink class="nav-link" :to="{ name: 'Page2', params: { username: store.email } }">Page2</RouterLink>
-          </li>
-          <li v-if="store.email.length > 0" class="nav-item">
-            <a @click="() => { store.email = ''; router.push('/'); }" class="nav-link">Logout {{ store.email }}</a>
-          </li>
+          
         </ul>
       </div>
     </div>
@@ -43,7 +32,7 @@ nav {
 }
 
 .navigation-link {
-  color: #214788; /* todo: not sure */
+  color: #214788; 
   padding-left: 1rem;
   padding-right: 1rem;
   text-decoration: none;
