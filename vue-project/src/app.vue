@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, reactive } from 'vue';
-import Nav from './components/nav.vue'
+import Nav from './components/Nav.vue'
 import './assets/style.css'
 import Login from './components/Login.vue';
 

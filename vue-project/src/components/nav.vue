@@ -1,23 +1,34 @@
 <script setup lang="ts">
-//import { useUserStore } from '../stores/userStore'
+import { useUserStore } from '../stores/userstore';
+import { RouterLink } from 'vue-router';
+
+const store = useUserStore();
+
 </script>
 
+
 <template>
-  <nav class="navbar">
-    <div class="container">
-      <ul class="navbar-nav">
+  <nav>
+      <ul>
         <li class="nav-item">
-          <RouterLink class="nav-link" to="/">Home</RouterLink>
+          <a class="nav-link" href="#bening">Beninging</a> <!--TODO: vb see mangu end screenile-->
         </li>
-        
+        <li class="nav-item">
+          <a class="nav-link" href="#game">Play game</a>
+        </li>
+        <li v-if="store.userName" class="nav-item">
+          <div class="nav-link" to="/">Welcome, {{ store.userName }}</div>
+        </li>u
+        <li v-if="store.userName" class="nav-item">
+          <a @click="() => { store.userName = '' }" class="nav-link" to="/">Log out</a>
+        </li>
       </ul>
-    </div>
   </nav>
 </template>
 
 <style scoped>
 
-.navbar {
+nav {
   position: fixed;
   top: 0;
   left: 0;
@@ -25,31 +36,21 @@
   background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(58, 116, 217) 100%);
   height: 4rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   font-weight: bold;
 }
 
-.container {
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 15px;
-}
 
-.navbar-nav {
-  display: flex;
+ul {
+  display: grid;
+  grid-template-columns: 10rem 10rem 10rem 10rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.nav-item {
-  margin: 0 15px;
-}
 
 .nav-link {
   color: #214788;
@@ -60,5 +61,4 @@
 .nav-link:hover {
   color: #316fd9;
 }
-
 </style>
