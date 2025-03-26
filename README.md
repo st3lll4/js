@@ -1,6 +1,6 @@
 # icd0024-24-25-s  
 
-tere 
+## tere <br> 
 see on minu ICD0024 repo
 
 ---
@@ -12,7 +12,7 @@ see on minu ICD0024 repo
 
 ---
 
-kui sa otsid siit c# projekti, siis see on gihubis eraldi
+kui sa otsid siit c# projekti, siis see on githubis eraldi
 
 ---
 

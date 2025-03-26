@@ -37,5 +37,43 @@ const store = useUserDataStore();
 
 <style scoped>
 
+nav {
+  background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(58, 116, 217) 100%);
+  font-size: 1.15rem;
+}
+
+.navigation-link {
+  color: #214788; /* todo: not sure */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-decoration: none;
+}
+.navigation-link:hover {
+  color: #3A74D9;
+}
+
+.icon {
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  margin: 0 2vh 0 2vh;
+  transition: 0.3s;
+}
+.icon:hover {
+  background-color: #3A74D9;
+  color: white;
+  border: 1px white;
+}
+
+nav .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 
 </style>
