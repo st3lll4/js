@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useUserStore } from '../stores/userstore';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const store = useUserStore();
+const router = useRouter();
 
 </script>
 
@@ -10,17 +11,20 @@ const store = useUserStore();
 <template>
   <nav>
       <ul>
-        <li class="nav-item">
-          <a class="nav-link" href="#bening">Beninging</a> <!--TODO: vb see mangu end screenile-->
+        <li v-if="store.userName" class="nav-item name">
+          <div class="nav-link" to="/">Logged in as: {{ store.userName }}</div> <!--todo: mis sellega teha, kas mingi link v div-->
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#game">Play game</a>
+          <RouterLink class="nav-link" to="/">Beninging</RouterLink> <!--TODO: vb see mangu end screenile-->
+        </li>
+        <li v-if="!store.userName" class="nav-item">
+          <RouterLink class="nav-link" to="/Login">Log in</RouterLink>
         </li>
         <li v-if="store.userName" class="nav-item">
-          <div class="nav-link" to="/">Welcome, {{ store.userName }}</div>
-        </li>u
+          <RouterLink class="nav-link" to="/Game">Play game</RouterLink>
+        </li>
         <li v-if="store.userName" class="nav-item">
-          <a @click="() => { store.userName = '' }" class="nav-link" to="/">Log out</a>
+          <a @click="() => { store.userName = '' ; router.push('/Game'); }" class="nav-link">Log out</a> <!--todo: mis sellega teha, kas mingi link v mis-->
         </li>
       </ul>
   </nav>
@@ -45,7 +49,7 @@ nav {
 
 ul {
   display: grid;
-  grid-template-columns: 10rem 10rem 10rem 10rem;
+  grid-template-columns: 15rem 10rem 10rem 10rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -56,6 +60,11 @@ ul {
   color: #214788;
   text-decoration: none;
   transition: color 0.1.5s ease;
+  cursor: pointer;
+}
+
+.name { 
+  margin-right: 5rem;
 }
 
 .nav-link:hover {

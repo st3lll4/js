@@ -9,7 +9,7 @@ import Login from './components/Login.vue';
 <template>
   <Nav />
   <main id="app">
-    <Login/>
+    <RouterView />
   </main>
 </template>
 

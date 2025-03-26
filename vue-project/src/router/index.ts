@@ -5,21 +5,20 @@ import { compile } from "vue";
 
 const routes = [
     {
-        path: "/",
+        path: "/Login",
         name: "Login",
-        component: Login
+        component: Login,
     },
     {
         path: "/game",
         name: "Play",
-        component: Game
+        component: Game,
     }
 ]
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory('/'), // vb tekitab probleeme aga ei saa importida seda teist
     routes,
-  })
+})
   
-  export default router
-  
+export default router
