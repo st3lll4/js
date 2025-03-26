@@ -3,11 +3,6 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   font-family: "zain", sans-serif;
-}
-
-#app {
-  height: 100%;
-  width: 100%;
-  display: grid;
+  padding-top: 4rem;
 }
 

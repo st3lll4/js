@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUserDataStore } from '../stores/userstore'
+//import { useUserStore } from '../stores/userStore'
 </script>
 
 <template>
@@ -9,13 +9,14 @@ import { useUserDataStore } from '../stores/userstore'
         <li class="nav-item">
           <RouterLink class="nav-link" to="/">Home</RouterLink>
         </li>
-        <!-- Add more navigation items as needed -->
+        
       </ul>
     </div>
   </nav>
 </template>
 
 <style scoped>
+
 .navbar {
   position: fixed;
   top: 0;
@@ -25,6 +26,7 @@ import { useUserDataStore } from '../stores/userstore'
   height: 4rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-weight: bold;
 }
 
@@ -32,6 +34,9 @@ import { useUserDataStore } from '../stores/userstore'
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0 15px;
 }
 
@@ -49,12 +54,11 @@ import { useUserDataStore } from '../stores/userstore'
 .nav-link {
   color: #214788;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.1.5s ease;
 }
 
 .nav-link:hover {
-  color: #81a7ea;
+  color: #316fd9;
 }
-
 
 </style>
