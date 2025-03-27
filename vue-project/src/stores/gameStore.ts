@@ -39,7 +39,7 @@ export const useGameStore = defineStore('gameData', () => {
             }
             switchPlayer();
         } else {
-                showMoveError();
+            showMoveError();
         }
     }
     
@@ -229,8 +229,8 @@ export const useGameStore = defineStore('gameData', () => {
         gridStartY.value = 1;
         moveMade.value = false;
     }
-    return {
 
+    return {
     board,
     gameOn,
     gameOver,
@@ -241,7 +241,14 @@ export const useGameStore = defineStore('gameData', () => {
     gridStartX,
     gridStartY,
     moveMade,
-    // Computed
-    currentGrid
+    currentGrid,
+    toggleGameMode,
+    makeAMove,
+    isInGrid,
+    removePiece,
+    moveGrid,
+    checkWin,
+    makeAIMove,
+    resetGame
 }
 })

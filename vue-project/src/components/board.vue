@@ -1,20 +1,29 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { useGameStore } from '@/stores/gameStore';
+import { useUserStore } from '@/stores/userstore';
 
-interface Props {
-    board: string[][]
-}
+const gameStore = useGameStore();
 
-const props = defineProps<Props>();
+const = reactive(gameStore.board);
 
 onMounted(() => {
-    console.log(props.board)
+    console.log(gameStore.board)
 });
+
 
 </script>
 
 <template>
-    teeree
+  <div class="board">
+    <div v-for="(row, rowIndex) in gameStore.board" :key="rowIndex" class="row">
+      <div v-for="(col, columnIndex) in gameStore.board" :key="`${rowIndex},${columnIndex}`" :class="['col', {
+        'grid-sq': gameStore.isInGrid
+      }]" @click="gameStore.makeAMove(rowIndex, columnIndex)">
+        {{  || '' }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -64,4 +73,5 @@ onMounted(() => {
 .grid {
   background-color: var(--darker-blue);
 }
+
 </style>
