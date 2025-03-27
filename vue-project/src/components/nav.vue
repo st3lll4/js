@@ -10,28 +10,29 @@ const router = useRouter();
 
 <template>
   <nav>
+    <div class="nav-container">
       <ul>
-        <li v-if="store.userName" class="nav-item name">
-          <div class="nav-link" to="/">Logged in as: {{ store.userName }}</div> <!--todo: mis sellega teha, kas mingi link v div-->
-        </li>
         <li class="nav-item">
-          <RouterLink class="nav-link" to="/">Beninging</RouterLink> <!--TODO: vb see mangu end screenile-->
+          <RouterLink class="nav-link" to="/">Houm</RouterLink> <!--TODO: vb see mangu end screenile-->
         </li>
         <li v-if="!store.userName" class="nav-item">
           <RouterLink class="nav-link" to="/Login">Log in</RouterLink>
         </li>
         <li v-if="store.userName" class="nav-item">
-          <RouterLink class="nav-link" to="/Game">Play game</RouterLink>
+          <RouterLink class="nav-link" :to="{ name: 'Game', params: { userName: store.userName } }">Play game</RouterLink>
         </li>
         <li v-if="store.userName" class="nav-item">
-          <a @click="() => { store.userName = '' ; router.push('/Game'); }" class="nav-link">Log out</a> <!--todo: mis sellega teha, kas mingi link v mis-->
+          <a @click="() => { store.userName = ''; router.push('/Game'); }" class="nav-link">Log out</a>
         </li>
       </ul>
+      <div class="nav-greeting" v-if="store.userName">
+        Logged in as: {{ store.userName }}
+      </div>
+    </div>
   </nav>
 </template>
 
 <style scoped>
-
 nav {
   position: fixed;
   top: 0;
@@ -43,18 +44,32 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
 }
 
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1400px;
+  max-width: 100%;
+  padding: 0 1rem;
+}
+
+.nav-greeting {
+  color: #ffffff;
+  margin-left: auto;
+}
 
 ul {
-  display: grid;
-  grid-template-columns: 15rem 10rem 10rem 10rem;
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  align-items: center;
+  gap: clamp(1rem, 3vw, 5rem);
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 
 .nav-link {
   color: #214788;
@@ -63,7 +78,7 @@ ul {
   cursor: pointer;
 }
 
-.name { 
+.name {
   margin-right: 5rem;
 }
 

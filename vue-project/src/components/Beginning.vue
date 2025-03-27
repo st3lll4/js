@@ -5,5 +5,5 @@ defineProps({
 </script>
 
 <template>
-    this is my game {{ userName }}
+    intro to the game {{ userName }}
 </template>
