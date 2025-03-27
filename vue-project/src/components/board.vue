@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref, reactive } from 'vue'
 import { useGameStore } from '@/stores/gameStore';
 import { useUserStore } from '@/stores/userstore';
 
 const gameStore = useGameStore();
 
-const = reactive(gameStore.board);
+const board = reactive(gameStore.board);
 
 onMounted(() => {
     console.log(gameStore.board)
@@ -18,60 +18,47 @@ onMounted(() => {
   <div class="board">
     <div v-for="(row, rowIndex) in gameStore.board" :key="rowIndex" class="row">
       <div v-for="(col, columnIndex) in gameStore.board" :key="`${rowIndex},${columnIndex}`" :class="['col', {
-        'grid-sq': gameStore.isInGrid
+        'grid-sq': gameStore.isInGrid(rowIndex, columnIndex)
       }]" @click="gameStore.makeAMove(rowIndex, columnIndex)">
-        {{  || '' }}
+        {{ board[rowIndex][columnIndex] || '' }}
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
+.board {
+  margin-top: 3rem;
+}
+
 .row {
   display: flex;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .col {
-  min-height: 5rem;
-  max-width: 5rem;
+  min-height: 4rem;
+  max-width: 4rem;
   margin: 0.1rem;
-  border-radius: 0.5rem;
-  background-color: var(--lighter-blue);
-  font-size: 3rem;
-  text-align: center;
-  color: var(--darker-blue);
-}
-
-.small-btn {
-  display: flex;
-  margin: 0.3rem;
-  min-height: 3rem;
-  min-width: 3rem;
-  max-width: fit-content;
   border-radius: 0.2rem;
-  background: var(--button);
+  background-color: #D5E1F7;
+  font-size: 3rem;
+  color: #3C75D9;
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  cursor: pointer;
-  font-size: x-large;
-}
-
-.big-btn {
-  font-size: 1rem;
-  min-width: 3rem;
-  cursor: pointer;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 200%;
 }
 
 .grid-sq {
-  background-color: var(--lavender);
-}
-
-.grid {
-  background-color: var(--darker-blue);
+  background-color: #3C75D9;
+  color: #ecf3ff;
 }
 
 </style>

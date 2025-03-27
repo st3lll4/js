@@ -37,6 +37,12 @@ export const useGameStore = defineStore('gameData', () => {
             } else {
                 OPieces.value--;
             }
+            
+            if (this.checkWin()) {
+                gameOver.value = true;
+                alert(`Player ${movingPlayer} wins!`);
+            }
+
             switchPlayer();
         } else {
             showMoveError();
@@ -55,15 +61,6 @@ export const useGameStore = defineStore('gameData', () => {
     function isInGrid(x : number, y : number) : boolean {
         return x >= gridStartX.value && x < gridStartX.value + 3 && 
             y >= gridStartY.value && y < gridStartY.value + 3
-    }
-    
-    function moveLeft() : void {
-        if (gridStartY.value > 0 && xPieces.value <= 2 && OPieces.value <= 2) {
-            gridStartY.value--;
-            switchPlayer();
-        } else {
-            showMoveError();
-        }
     }
     
     function moveGrid(direction: 'up' | 'down' | 'left' | 'right') {
@@ -99,9 +96,10 @@ export const useGameStore = defineStore('gameData', () => {
         const checkPlayer = (player : Player) => {
 
             for (let i = gridStartX.value; i < gridStartX.value + 3; i++) {
-                if (board[i][gridStartY.value].value === player &&
-                    board[i][gridStartY.value + 1].value === player &&
-                    board[i][gridStartY.value + 2].value === player) {
+                console.log(board[i][gridStartY.value])
+                if (board[i][gridStartY.value] === player &&
+                    board[i][gridStartY.value + 1] === player &&
+                    board[i][gridStartY.value + 2] === player) {
                     return true;
                 }
             }
