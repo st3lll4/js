@@ -1,6 +1,6 @@
-import { IDomainId } from "./IDomainId";
+import type { IDomainId } from "./IDomainId";
 
 export interface IGpsLocationType extends IDomainId {
     name: string,
-    desc: string
+    description: string
 }

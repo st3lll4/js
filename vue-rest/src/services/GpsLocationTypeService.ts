@@ -1,8 +1,10 @@
-import {Axios } from "axios";
-import { IGpsLocationType } from "@/domain/IGpsLocationType";
+import axios from "axios";
+import type { IGpsLocationType } from "@/domain/IGpsLocationType";
+import type { IResultObject } from "@/types/IResultObject";
 
 export abstract class GpsLocationTypeService {
-    private static axios = new Axios(
+
+    private static axios = axios.create(
         {
             baseURL: "https://sportmap.akaver.com/api/v1.0/GpsSessions/",
             headers: {
@@ -11,19 +13,24 @@ export abstract class GpsLocationTypeService {
         }
     )
 
-    static async getAll(): Promise<IGpsLocationType[]> {
+    static async getAllAsync(): Promise<IResultObject<IGpsLocationType[]>> {
         const url = "";
         try {
             const response = await this.axios.get<IGpsLocationType[]>(url);
 
-            console.log('getAll response', response);
-            if (response.status === 200) {
-                return response.data;
+            if (response.status <= 300) {
+                return {
+                    data: response.data
+                };
             }
-            return [];
+            return {
+                errors: [response.status.toString() + "" + response.statusText]
+            };
         } catch (error) {
             console.log('error: ', (error as Error).message);
-            return [];
+            return {
+                errors: [JSON.stringify(error)]
+            };
         }
     }
 }

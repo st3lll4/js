@@ -1,8 +1,9 @@
-import { IDomainId } from "./IDomainId";
+import type { IDomainId } from './IDomainId';
+
 
 export interface IGpsSessionType extends IDomainId {
     name: string,
-    desc: string,
+    description: string,
     paceMin: number,
     paceMax: number
 }
