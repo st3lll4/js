@@ -19,10 +19,10 @@ const router = useRouter();
           <RouterLink class="nav-link" to="/Login">Log in</RouterLink>
         </li>
         <li v-if="store.userName" class="nav-item">
-          <RouterLink class="nav-link" :to="{ name: 'Game', params: { userName: store.userName } }">Play game</RouterLink>
+          <RouterLink class="nav-link" :to="{ name: 'Game'}">Play game</RouterLink>
         </li>
         <li v-if="store.userName" class="nav-item">
-          <a @click="() => { store.userName = ''; router.push('/Game'); }" class="nav-link">Log out</a>
+          <a @click="() => { store.userName = ''; router.push('/Login'); }" class="nav-link">Log out</a>
         </li>
       </ul>
       <div class="nav-greeting" v-if="store.userName">

@@ -96,31 +96,31 @@ export const useGameStore = defineStore('gameData', () => {
         const checkPlayer = (player : Player) => {
 
             for (let i = gridStartX.value; i < gridStartX.value + 3; i++) {
-                console.log(board[i][gridStartY.value])
-                if (board[i][gridStartY.value] === player &&
-                    board[i][gridStartY.value + 1] === player &&
-                    board[i][gridStartY.value + 2] === player) {
+                console.log(board.value[i][gridStartY.value])
+                if (board.value[i][gridStartY.value] === player &&
+                    board.value[i][gridStartY.value + 1] === player &&
+                    board.value[i][gridStartY.value + 2] === player) {
                     return true;
                 }
             }
 
             for (let j = gridStartY.value; j < gridStartY.value + 3; j++) {
-                if (board[gridStartX.value][j].value === player &&
-                    board[gridStartX.value + 1][j].value === player &&
-                    board[gridStartX.value + 2][j].value === player) {
+                if (board.value[gridStartX.value][j] === player &&
+                    board.value[gridStartX.value + 1][j] === player &&
+                    board.value[gridStartX.value + 2][j] === player) {
                     return true;
                 }
             }
 
-            if (board[gridStartX.value][gridStartY.value].value === player &&
-                board[gridStartX.value + 1][gridStartY.value + 1].value === player &&
-                board[gridStartX.value + 2][gridStartY.value + 2].value === player) {
+            if (board.value[gridStartX.value][gridStartY.value] === player &&
+                board.value[gridStartX.value + 1][gridStartY.value + 1] === player &&
+                board.value[gridStartX.value + 2][gridStartY.value + 2] === player) {
                 return true;
             }
 
-            if (board[gridStartX.value][gridStartY.value + 2].value === player &&
-                board[gridStartX.value + 1][gridStartY.value + 1].value === player &&
-                board[gridStartX.value + 2][gridStartY.value].value === player) {
+            if (board.value[gridStartX.value][gridStartY.value + 2] === player &&
+                board.value[gridStartX.value + 1][gridStartY.value + 1] === player &&
+                board.value[gridStartX.value + 2][gridStartY.value] === player) {
                 return true;
             }
 
@@ -149,28 +149,28 @@ export const useGameStore = defineStore('gameData', () => {
 
         if (!gameOver.value) {
             if (OPieces.value > 0) {
-                if (board[gridStartX.value + 1][gridStartY.value + 1].value === undefined) {
-                    board[gridStartX.value + 1][gridStartY.value + 1].value = "O"; // tries to take the middle
+                if (board.value[gridStartX.value + 1][gridStartY.value + 1] === undefined) {
+                    board.value[gridStartX.value + 1][gridStartY.value + 1] = "O"; // tries to take the middle
                     OPieces.value--;
                 }
 
-                else if (board[gridStartX.value][gridStartY.value].value === undefined) {
-                    board[gridStartX.value][gridStartY.value].value = "O"; // tries to take the first corner
+                else if (board.value[gridStartX.value][gridStartY.value] === undefined) {
+                    board.value[gridStartX.value][gridStartY.value] = "O"; // tries to take the first corner
                     OPieces.value--;
                 }
 
-                else if (board[gridStartX.value + 2][gridStartY.value].value === undefined) {
-                    board[gridStartX.value + 2][gridStartY.value].value = "O"; // tries to take the second corner
+                else if (board.value[gridStartX.value + 2][gridStartY.value] === undefined) {
+                    board.value[gridStartX.value + 2][gridStartY.value] = "O"; // tries to take the second corner
                     OPieces.value--;
                 }
 
-                else if (board[gridStartX.value + 2][gridStartY.value + 2].value === undefined) {
-                    board[gridStartX.value + 2][gridStartY.value + 2].value = "O"; // tries to take the last corner
+                else if (board.value[gridStartX.value + 2][gridStartY.value + 2] === undefined) {
+                    board.value[gridStartX.value + 2][gridStartY.value + 2] = "O"; // tries to take the last corner
                     OPieces.value--;
                 }
 
-                else if (board[rndX][rndY].value === undefined) {
-                    board[rndX][rndY].value = "O"; // tries to make a random move
+                else if (board.value[rndX][rndY] === undefined) {
+                    board.value[rndX][rndY] = "O"; // tries to make a random move
                     OPieces.value--;
                 }
                 switchPlayer();
@@ -196,12 +196,12 @@ export const useGameStore = defineStore('gameData', () => {
                 }
             }
             else {
-                if (board[rndX][rndY].value === "O") { // tries to remove and place a rnd piece
+                if (board.value[rndX][rndY] === "O") { // tries to remove and place a rnd piece
                     removePiece(rndX, rndY);
                     rndX = getRandomInRange(gridStartX.value, gridStartX.value + 2);
                     rndY = getRandomInRange(gridStartY.value, gridStartY.value + 2);
-                    if (board[rndX][rndY] === undefined) {
-                        board[rndX][rndY] = "O";
+                    if (board.value[rndX][rndY] === undefined) {
+                        board.value[rndX][rndY] = "O";
                         switchPlayer();
                     }
                 } else {

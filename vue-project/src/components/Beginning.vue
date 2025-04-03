@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { useUserStore } from '../stores/userstore';
 
-defineProps({
-    userName: String
-})
+const store = useUserStore();
+
 
 </script>
 
 <template>
-    intro to the game {{ userName }}
+    intro to the game: {{ store.userName }}
 </template>

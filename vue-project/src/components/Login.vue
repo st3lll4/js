@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useUserStore } from '../stores/userstore';
+import router from '../router';
 
 const store = useUserStore();
 
@@ -10,7 +11,10 @@ const password = ref("");
 const doLogin = () => {
     store.userName = userName.value;
     store.password = password.value;
+    router.push({ name: 'Beginning' })
 } 
+
+
 </script>
 
 <template>

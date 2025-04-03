@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue'
-import { useGameStore } from '@/stores/gameStore';
-import { useUserStore } from '@/stores/userstore';
+import { useGameStore } from '../stores/gameStore';
+import { useUserStore } from '../stores/userstore';
 
 const gameStore = useGameStore();
+const userStore = useUserStore();
 
 const board = reactive(gameStore.board);
 
