@@ -1,27 +1,38 @@
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue'
+import { reactive } from 'vue'
 import { useGameStore } from '../stores/gameStore';
-import { useUserStore } from '../stores/userstore';
+import { useCanMove } from '../composables/gameStatus';
+
+const { canMove } = useCanMove(); 
+// todo: midagi on vaja, mis muudaks seda canmove, mingi watcher mis vaatab iga kord kui ta muutub, 
+// siis kas ta on AI ja kas gamemode klapib
+// ja kui on siis on false ja muidu on true
+
 
 const gameStore = useGameStore();
-const userStore = useUserStore();
 
 const board = reactive(gameStore.board);
 
-onMounted(() => {
-    console.log(gameStore.board)
-});
-
+function handleMove(row : number, col : number) {
+  gameStore.makeAMove(row, col);
+}
 
 </script>
 
 <template>
-  <div class="board">
+  <div :class="['board', 
+    {
+      'deactivated': !canMove
+    }
+  ]">
     <div v-for="(row, rowIndex) in gameStore.board" :key="rowIndex" class="row">
-      <div v-for="(col, columnIndex) in gameStore.board" :key="`${rowIndex},${columnIndex}`" :class="['col', {
+      <div v-for="(col, columnIndex) in gameStore.board" 
+        :key="`${rowIndex},${columnIndex}`" 
+        :class="['col', {
         'grid-sq': gameStore.isInGrid(rowIndex, columnIndex)
-      }]" @click="gameStore.makeAMove(rowIndex, columnIndex)">
-        {{ board[rowIndex][columnIndex] || '' }}
+        }]" 
+        @click="handleMove(rowIndex, columnIndex)">
+          {{ board[rowIndex][columnIndex] || '' }}
       </div>
     </div>
   </div>
@@ -43,6 +54,7 @@ onMounted(() => {
 }
 
 .col {
+  cursor: crosshair;
   min-height: 4rem;
   max-width: 4rem;
   margin: 0.1rem;

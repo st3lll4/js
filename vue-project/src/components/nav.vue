@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { useGameStore } from '../stores/gameStore';
 import { useUserStore } from '../stores/userstore';
 import { RouterLink, useRouter } from 'vue-router';
 
-const store = useUserStore();
+const userStore = useUserStore();
+const gameStore = useGameStore();
+
 const router = useRouter();
 
 </script>
@@ -13,20 +16,20 @@ const router = useRouter();
     <div class="nav-container">
       <ul>
         <li class="nav-item">
-          <RouterLink class="nav-link" to="/">Houm</RouterLink> <!--TODO: vb see mangu end screenile-->
+          <RouterLink class="nav-link" to="/" @click="{ gameStore.resetGame(); }" >Houm</RouterLink> <!--TODO: vb see mangu end screenile-->
         </li>
-        <li v-if="!store.userName" class="nav-item">
+        <li v-if="!userStore.userName" class="nav-item">
           <RouterLink class="nav-link" to="/Login">Log in</RouterLink>
         </li>
-        <li v-if="store.userName" class="nav-item">
+        <li v-if="userStore.userName" class="nav-item">
           <RouterLink class="nav-link" :to="{ name: 'Game'}">Play game</RouterLink>
         </li>
-        <li v-if="store.userName" class="nav-item">
-          <a @click="() => { store.userName = ''; router.push('/Login'); }" class="nav-link">Log out</a>
+        <li v-if="userStore.userName" class="nav-item">
+          <a @click="() => { userStore.userName = ''; router.push('/Login'); gameStore.resetGame(); }" class="nav-link">Log out</a>
         </li>
       </ul>
-      <div class="nav-greeting" v-if="store.userName">
-        Logged in as: {{ store.userName }}
+      <div class="nav-greeting" v-if="userStore.userName">
+        Logged in as: {{ userStore.userName }}
       </div>
     </div>
   </nav>
@@ -44,6 +47,7 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .nav-container {
@@ -74,7 +78,7 @@ ul {
 .nav-link {
   color: #214788;
   text-decoration: none;
-  transition: color 0.1.5s ease;
+  transition: color 0.3s ease;
   cursor: pointer;
 }
 
@@ -83,6 +87,6 @@ ul {
 }
 
 .nav-link:hover {
-  color: #316fd9;
+  color: #5b88d7;
 }
 </style>

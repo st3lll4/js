@@ -1,5 +1,4 @@
 <script setup>
-import { ref, computed, reactive } from 'vue';
 import Nav from './components/Nav.vue'
 import './assets/style.css'
 
@@ -8,24 +7,15 @@ import './assets/style.css'
 <template>
   <Nav />
   <main id="app">
-    <div class="wrapper">
     <RouterView />
-    </div>
   </main>
 </template>
 
 <style scoped>
 
 main {
-  margin-top: 1rem;
-  /* display: flex;
-  justify-content: center; */
+  margin: 1rem 0 0 0;
+  padding: 0;
 }
-/* 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-} */
 
 </style>

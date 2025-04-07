@@ -5,18 +5,19 @@ export const useGameStore = defineStore('gameData', () => {
     type Player = "X" | "O";
 
     const board = ref<(Player | undefined)[][]>([[], [], [], [], []])
-  
+
     const gameOn = ref(false)
     const gameOver = ref(false)
     const movingPlayer = ref<Player>("X")
     const singlePlayer = ref(true)
-  
+    const removingPiece = ref(false)
+
     const xPieces = ref(4)
     const OPieces = ref(4)
-  
+
     const gridStartX = ref(1)
     const gridStartY = ref(1)
-  
+
     const moveMade = ref(false)
 
     const currentGrid = computed(() => ({
@@ -24,79 +25,116 @@ export const useGameStore = defineStore('gameData', () => {
         startY: gridStartY.value
     }))
 
-    function toggleGameMode() : void {
-            singlePlayer.value = !singlePlayer.value;
-        }
-    
-    function makeAMove(x : number, y : number) : void {
-        if (board.value[x][y] === undefined && isInGrid(x, y) &&
-            ((movingPlayer.value === "X" && xPieces.value > 0) || (movingPlayer.value === "O" && OPieces.value > 0))) {
-                board.value[x][y] = movingPlayer.value;
+    function toggleGameMode(): void {
+        singlePlayer.value = !singlePlayer.value;
+    }
+
+    function makeAMove(x: number, y: number): void {
+        if (isValidMove(x, y) && board.value[x][y] === undefined) {
+            board.value[x][y] = movingPlayer.value;
             if (movingPlayer.value === "X") {
                 xPieces.value--;
             } else {
                 OPieces.value--;
             }
-            
-            if (this.checkWin()) {
-                gameOver.value = true;
-                alert(`Player ${movingPlayer} wins!`);
-            }
-
+            console.log(removingPiece.value)
+            removingPiece.value = false;
+            console.log(removingPiece.value)
             switchPlayer();
-        } else {
+        } else if (isValidMove(x, y) && board.value[x][y] === movingPlayer.value) {
+            removePiece(x, y);
+        }
+        else {
             showMoveError();
         }
+        checkWin();
+            if (gameOver.value) { 
+                sendAlert("GAME OVER BITCHES!")
+            };
     }
-    
-    function removePiece(x : number, y : number) : void {
+
+    function isValidMove(x : number, y : number) : boolean {
+        return isInGrid(x, y) &&
+            ((movingPlayer.value === "X" && xPieces.value > 0) 
+            || (movingPlayer.value === "O" && OPieces.value > 0))
+    }
+
+    function removePiece(x: number, y: number): void {
+        removingPiece.value = true;
         board.value[x][y] = undefined;
-            if (movingPlayer.value === "X") {
-                xPieces.value++;
-            } else {
-                OPieces.value++;
-            }
+        if (movingPlayer.value === "X") {
+            xPieces.value++;
+        } else {
+            OPieces.value++;
         }
-    
-    function isInGrid(x : number, y : number) : boolean {
-        return x >= gridStartX.value && x < gridStartX.value + 3 && 
+        sendAlert("place your piece somewhere!")
+    }
+
+    function isInGrid(x: number, y: number): boolean {
+        return x >= gridStartX.value && x < gridStartX.value + 3 &&
             y >= gridStartY.value && y < gridStartY.value + 3
     }
-    
+
     function moveGrid(direction: 'up' | 'down' | 'left' | 'right') {
         if (xPieces.value <= 2 && OPieces.value <= 2) {
             switch (direction) {
                 case 'up':
-                    if (gridStartX.value > 0) gridStartX.value--
+                    if (gridStartX.value > 0) { 
+                        gridStartX.value-- 
+                    }
+                    else {
+                        showMoveError()
+                    }
                     break
                 case 'down':
-                    if (gridStartX.value + 3 < 5) gridStartX.value++
+                    if (gridStartX.value + 3 < 5) { 
+                        gridStartX.value++ 
+                    }
+                    else {
+                        showMoveError()
+                    }
                     break
                 case 'left':
-                    if (gridStartY.value > 0) gridStartY.value--
+                    if (gridStartY.value > 0) {
+                        gridStartY.value--
+                    }
+                    else {
+                        showMoveError()
+                    }
                     break
                 case 'right':
-                    if (gridStartY.value + 3 < 5) gridStartY.value++
+                    if (gridStartY.value + 3 < 5) { 
+                        gridStartY.value++ 
+                    }
+                    else {
+                        showMoveError()
+                    }
                     break
             }
+            checkWin();
+            if (gameOver.value) { 
+                sendAlert("GAME OVER BITCHES!")
+            };
             switchPlayer()
         }
-    }
-    
-    function showMoveError() : void {
-            alert("You cant move there lil bro.");
+        else {
+            sendAlert("Make 2 moves first, big guy.")
         }
-    
-    function switchPlayer() : void {
+    }
+
+    function showMoveError(): void {
+        sendAlert("You can't move there lil bro.")
+    }
+
+    function switchPlayer(): void {
         movingPlayer.value = movingPlayer.value === "X" ? "O" : "X";
         moveMade.value = true;
     }
-    
-    function checkWin() : Player | null {
-        const checkPlayer = (player : Player) => {
+
+    function checkWin(): Player | null {
+        const checkPlayer = (player: Player) => {
 
             for (let i = gridStartX.value; i < gridStartX.value + 3; i++) {
-                console.log(board.value[i][gridStartY.value])
                 if (board.value[i][gridStartY.value] === player &&
                     board.value[i][gridStartY.value + 1] === player &&
                     board.value[i][gridStartY.value + 2] === player) {
@@ -138,8 +176,8 @@ export const useGameStore = defineStore('gameData', () => {
         }
         return null;
     }
-    
-    function makeAIMove() : void {
+
+    function makeAIMove(): void {
         let rndX = getRandomInRange(gridStartX.value, gridStartX.value + 2);
         let rndY = getRandomInRange(gridStartY.value, gridStartY.value + 2);
 
@@ -210,13 +248,18 @@ export const useGameStore = defineStore('gameData', () => {
                 }
             }
         }
-        }
-    
-    function getRandomInRange(min : number, max : number) : number {
-        return Math.floor(Math.random() * (max - min) + min);
     }
 
-    function resetGame() : void {
+    function getRandomInRange(min: number, max: number): number {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+    
+    function sendAlert(message : string) : string {
+        console.log(message)
+        return message;
+    }
+
+    function resetGame(): void {
         board.value = [[], [], [], [], []];
         gameOn.value = false;
         gameOver.value = false;
@@ -229,24 +272,27 @@ export const useGameStore = defineStore('gameData', () => {
     }
 
     return {
-    board,
-    gameOn,
-    gameOver,
-    movingPlayer,
-    singlePlayer,
-    xPieces,
-    OPieces,
-    gridStartX,
-    gridStartY,
-    moveMade,
-    currentGrid,
-    toggleGameMode,
-    makeAMove,
-    isInGrid,
-    removePiece,
-    moveGrid,
-    checkWin,
-    makeAIMove,
-    resetGame
-}
+        board,
+        gameOn,
+        gameOver,
+        movingPlayer,
+        singlePlayer,
+        xPieces,
+        OPieces,
+        gridStartX,
+        gridStartY,
+        moveMade,
+        currentGrid,
+        removingPiece,
+        switchPlayer,
+        toggleGameMode,
+        makeAMove,
+        isInGrid,
+        removePiece,
+        moveGrid,
+        checkWin,
+        makeAIMove,
+        resetGame, 
+        sendAlert
+    }
 })
