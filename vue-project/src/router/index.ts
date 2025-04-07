@@ -1,7 +1,7 @@
-import Login from "../components/Login.vue";
+import Login from "../views/Login.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import Game from "../components/Game.vue";
-import Beginning from "../components/Beginning.vue";
+import Beginning from "../views/Beginning.vue";
 
 const routes = [
     {
