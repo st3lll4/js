@@ -11,8 +11,6 @@ const { canMove } = useCanMove();
 
 const gameStore = useGameStore();
 
-const board = reactive(gameStore.board);
-
 function handleMove(row : number, col : number) {
   gameStore.makeAMove(row, col);
 }
@@ -20,11 +18,7 @@ function handleMove(row : number, col : number) {
 </script>
 
 <template>
-  <div :class="['board', 
-    {
-      'deactivated': !canMove
-    }
-  ]">
+  <div class="board">
     <div v-for="(row, rowIndex) in gameStore.board" :key="rowIndex" class="row">
       <div v-for="(col, columnIndex) in gameStore.board" 
         :key="`${rowIndex},${columnIndex}`" 
@@ -32,7 +26,7 @@ function handleMove(row : number, col : number) {
         'grid-sq': gameStore.isInGrid(rowIndex, columnIndex)
         }]" 
         @click="handleMove(rowIndex, columnIndex)">
-          {{ board[rowIndex][columnIndex] || '' }}
+          {{ gameStore.board[rowIndex][columnIndex] || '' }}
       </div>
     </div>
   </div>

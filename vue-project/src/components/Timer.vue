@@ -2,6 +2,7 @@
 import { ref, onUnmounted, watch } from 'vue';
 import { useGameStore } from '../stores/gameStore';
 import { useGameStatus, useCanMove } from '../composables/gameStatus';
+import Swal from 'sweetalert2'
 
 const { gameStarted } = useGameStatus();
 
@@ -16,7 +17,8 @@ const gameStore = useGameStore();
 const countdown = ref(5);
 const isGlowing = ref(false);
 
-let timerInterval: number | undefined = undefined;
+let timerInterval: ReturnType<typeof setInterval> | undefined = undefined;
+// “TypeScript, please figure out what type setInterval returns and use that as the type for my timerInterval variable.”
 
 function startTimer(): void {
     stopTimer();
@@ -51,9 +53,9 @@ function stopTimer(): void {
 function startGame() {
     gameStore.resetGame(); // miskiparast ei toota
     isGlowing.value = true;
-    
+
     gameStarted.value = true;
-    
+
     setTimeout(() => {
         isGlowing.value = false;
     }, 500);
@@ -67,8 +69,19 @@ onUnmounted(() => {
 watch(() => gameStore.gameOver, (gameOver) => {
     if (gameOver) {
         stopTimer();
-        alert("game over") // fix alerts pls
-        gameStarted.value = false; 
+        Swal.fire({
+            title: "Custom width, padding, color, background.",
+            width: 600,
+            padding: "3em",
+            color: "#716add",
+            backdrop: `
+            rgba(0,0,123,0.4)
+            url("../assets/images/nyan-cat.gif")
+            left top
+            no-repeat
+            `
+        });
+        gameStarted.value = false;
     }
 });
 
@@ -129,11 +142,31 @@ img {
     0% {
         box-shadow: 0 0 0 0 rgba(60, 117, 217, 0.7);
     }
+
     50% {
         box-shadow: 0 0 25px 10px rgba(60, 117, 217, 0.9);
     }
+
     100% {
         box-shadow: 0 0 0 0 rgba(60, 117, 217, 0);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .timer {
+        font-size: smaller;
+        padding: 0.3rem 0.7rem;
+        background-color: white;
+        color: rgba(16, 80, 192, 0.9);
+    }
+
+    img {
+        max-width: 30px;
+    }
+
+    .icon {
+        background-color: rgb(127, 152, 234);
+        padding: 0;
     }
 }
 </style>

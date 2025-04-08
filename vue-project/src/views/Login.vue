@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import Swal from 'sweetalert2'
 import { useUserStore } from '../stores/userstore';
 import router from '../router';
 
@@ -9,12 +10,32 @@ const userName = ref("");
 const password = ref("");
 
 const doLogin = () => {
+  if (!dinosaurApproval.value) {
+    Swal.fire({
+      icon: 'warning',
+      title: "Hol'up!",
+      text: 'You must agree to some things before logging in!',
+      confirmButtonColor: '#4d71e8',
+    });
+    return;
+  }
+
   store.userName = userName.value;
   store.password = password.value;
-  router.push({ name: 'Beginning' })
-}
+  Swal.fire({
+    icon: 'success',
+    title: 'Welcome!',
+    text: 'Login successful.',
+    animation: true,
+    timer: 1500,
+    showConfirmButton: false,
+  }).then(() => {
+    router.push({ name: 'Beginning' });
+  });
+};
 
-const status = ref('')
+const dinosaurApproval = ref('');
+
 
 </script>
 
@@ -30,12 +51,12 @@ const status = ref('')
         <label for="exampleInputPassword1" class="details text">password</label>
         <input v-model="password" type="password" class="form-control mb-3" id="exampleInputPassword1">
 
-        <div  class="check-info">
-          <input v-model="status" @change="(console.log(status))" required type="checkbox" class="checkbox">
+        <div class="check-info">
+          <input v-model="dinosaurApproval" type="checkbox" class="checkbox">
           <span class="check-text">
             i agree that my data is provided to pink dinosaurs for approval
           </span>
-          </div>
+        </div>
         <button type="submit" class="btn mt-2">Log in</button>
       </div>
     </div>

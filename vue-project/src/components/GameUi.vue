@@ -11,11 +11,11 @@ const gameStore = useGameStore();
 
 </script>
 
-<template>
-    <div class='wrapper'>
-        <div class="quit-container">
+<template><div class="quit-container">
             <a @click="() => { gameStore.resetGame(); router.push('/'); }" class="btn">quit</a>
         </div>
+    <div class='wrapper'>
+        
         <div v-if="gameStore.xPieces != 1" class="ui-info"> 
            X has
            <div class="player-pieces-left">{{ gameStore.xPieces }} </div>
@@ -31,7 +31,7 @@ const gameStore = useGameStore();
             {{ gameStore.movingPlayer }} - MOVE!
         </div>
         <div class="ui-info middle" v-else> 
-            press start to play
+            click on timer to start
         </div>
         <div class="arrows">
             <img @click="gameStore.moveGrid('up')" src="../assets/images/up.png" alt="up">
@@ -59,12 +59,17 @@ const gameStore = useGameStore();
 .wrapper {
     width: 100%;
     position: relative;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4rem;
+    flex-wrap: wrap;
+    padding: 0.5 rem;
+    background-color: #E6ECFF;
+    margin-top: 1rem;
+    border-radius: 0.6rem;
 }
+
 
 .ui-info {
     text-align: center;
@@ -81,7 +86,6 @@ const gameStore = useGameStore();
 }
 
 .quit-container {
-    position: absolute;
     left: 1rem;
     top: 0;
     cursor: pointer;
@@ -118,4 +122,18 @@ img {
     max-width: 40px;
     max-height: 40px;
 }
+
+@media screen and (max-width: 600px) {
+    .wrapper { 
+        gap: 1rem;
+    }
+    img {
+        max-width: 20px;
+    }
+    .ui-info {
+        font-size: smaller;
+        min-width: 3rem;
+    }
+}
+
 </style>

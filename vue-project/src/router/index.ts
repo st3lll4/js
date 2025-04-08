@@ -1,6 +1,6 @@
 import Login from "../views/Login.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import Game from "../components/Game.vue";
+import Game from "../views/Game.vue";
 import Beginning from "../views/Beginning.vue";
 
 const routes = [
