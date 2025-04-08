@@ -3,6 +3,7 @@ import { ref, onUnmounted, watch } from 'vue';
 import { useGameStore } from '../stores/gameStore';
 import { useGameStatus, useCanMove } from '../composables/gameStatus';
 import Swal from 'sweetalert2'
+import router from '../router';
 
 const { gameStarted } = useGameStatus();
 
@@ -21,13 +22,14 @@ let timerInterval: ReturnType<typeof setInterval> | undefined = undefined;
 // “TypeScript, please figure out what type setInterval returns and use that as the type for my timerInterval variable.”
 
 function startTimer(): void {
+    gameStarted.value = true
     stopTimer();
 
     timerInterval = setInterval(() => {
         countdown.value--;
 
         if (countdown.value === 0) {
-            alert("you didnt move, sleepy! switching players")
+            Swal.fire("you didnt move, sleepy! switching players")
             gameStore.switchPlayer();
             countdown.value = 5;
         }
@@ -63,23 +65,43 @@ function startGame() {
 
 onUnmounted(() => {
     stopTimer();
+    gameStore.resetGame();
     gameStarted.value = false;
 });
+
+const endOfGameSwal = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-light'
+    },
+    buttonsStyling: false
+})
 
 watch(() => gameStore.gameOver, (gameOver) => {
     if (gameOver) {
         stopTimer();
-        Swal.fire({
-            title: "Custom width, padding, color, background.",
+        endOfGameSwal.fire({
+            title: `CONGRATS, ${gameStore.winner}!`,
+            text: `Better luck (skill) next time, ${gameStore.winner === "X" ? "O" : "X"}!`,
             width: 600,
+            showCancelButton: true,
+            cancelButtonText: 'Back to menu',
+            confirmButtonText: "Just one more game",
+            reverseButtons: true,
             padding: "3em",
             color: "#716add",
             backdrop: `
-            rgba(0,0,123,0.4)
-            url("../assets/images/nyan-cat.gif")
-            left top
-            no-repeat
-            `
+    rgba(0,0,123,0.4)
+    url("../assets/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `
+        }).then((result) => {
+            if (result.isConfirmed) {
+                gameStore.resetGame();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                router.push('/');
+            }
         });
         gameStarted.value = false;
     }
@@ -87,6 +109,12 @@ watch(() => gameStore.gameOver, (gameOver) => {
 
 watch(() => gameStore.movingPlayer, (newvalue) => {
     if (newvalue) {
+        startTimer();
+    }
+})
+
+watch(() => gameStore.board, (newvalue) => {
+    if (gameStore.board !== ([[], [], [], [], []])) {
         startTimer();
     }
 })

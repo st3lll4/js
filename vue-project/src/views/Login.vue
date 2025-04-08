@@ -14,8 +14,8 @@ const doLogin = () => {
     Swal.fire({
       icon: 'warning',
       title: "Hol'up!",
-      text: 'You must agree to some things before logging in!',
-      confirmButtonColor: '#4d71e8',
+      text: 'You must agree to... some things before logging in!',
+      confirmButtonColor: '#4179DA',
     });
     return;
   }
@@ -24,7 +24,7 @@ const doLogin = () => {
   store.password = password.value;
   Swal.fire({
     icon: 'success',
-    title: `Welcome, ${userName}!`,
+    title: `Welcome, ${userName.value}!`,
     text: 'Good job, you logged in!',
     animation: true,
     timer: 1500,
@@ -54,7 +54,7 @@ const dinosaurApproval = ref('');
         <div class="check-info">
           <input v-model="dinosaurApproval" type="checkbox" class="checkbox">
           <span class="check-text">
-            i agree that my data is provided to pink dinosaurs for approval
+            i agree that my credit card data is provided to pink dinosaurs
           </span>
         </div>
         <button type="submit" class="btn mt-2">Log in</button>

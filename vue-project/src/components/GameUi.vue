@@ -9,6 +9,7 @@ const { gameStarted } = useGameStatus();
 const gameStore = useGameStore();
 
 
+
 </script>
 
 <template><div class="quit-container">

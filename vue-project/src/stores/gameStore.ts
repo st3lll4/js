@@ -1,8 +1,11 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import Swal from 'sweetalert2';
 
 export const useGameStore = defineStore('gameData', () => {
     type Player = "X" | "O";
+
+    const message = ref("")
 
     const board = ref<(Player | undefined)[][]>([[], [], [], [], []])
 
@@ -19,6 +22,8 @@ export const useGameStore = defineStore('gameData', () => {
     const gridStartY = ref(1)
 
     const moveMade = ref(false)
+
+    const winner = ref<Player>()
 
     const currentGrid = computed(() => ({
         startX: gridStartX.value,
@@ -48,15 +53,15 @@ export const useGameStore = defineStore('gameData', () => {
             showMoveError();
         }
         checkWin();
-            if (gameOver.value) { 
-                sendAlert("GAME OVER BITCHES!")
-            };
+        if (gameOver.value) {
+            sendAlert("GAME OVER BITCHES!")
+        };
     }
 
-    function isValidMove(x : number, y : number) : boolean {
+    function isValidMove(x: number, y: number): boolean {
         return isInGrid(x, y) &&
-            ((movingPlayer.value === "X" && xPieces.value > 0) 
-            || (movingPlayer.value === "O" && OPieces.value > 0))
+            ((movingPlayer.value === "X" && xPieces.value > 0)
+                || (movingPlayer.value === "O" && OPieces.value > 0))
     }
 
     function removePiece(x: number, y: number): void {
@@ -79,16 +84,16 @@ export const useGameStore = defineStore('gameData', () => {
         if (xPieces.value <= 2 && OPieces.value <= 2) {
             switch (direction) {
                 case 'up':
-                    if (gridStartX.value > 0) { 
-                        gridStartX.value-- 
+                    if (gridStartX.value > 0) {
+                        gridStartX.value--
                     }
                     else {
                         showMoveError()
                     }
                     break
                 case 'down':
-                    if (gridStartX.value + 3 < 5) { 
-                        gridStartX.value++ 
+                    if (gridStartX.value + 3 < 5) {
+                        gridStartX.value++
                     }
                     else {
                         showMoveError()
@@ -103,8 +108,8 @@ export const useGameStore = defineStore('gameData', () => {
                     }
                     break
                 case 'right':
-                    if (gridStartY.value + 3 < 5) { 
-                        gridStartY.value++ 
+                    if (gridStartY.value + 3 < 5) {
+                        gridStartY.value++
                     }
                     else {
                         showMoveError()
@@ -112,8 +117,8 @@ export const useGameStore = defineStore('gameData', () => {
                     break
             }
             checkWin();
-            if (gameOver.value) { 
-                sendAlert("GAME OVER BITCHES!")
+            if (gameOver.value) {
+                return;
             };
             switchPlayer()
         }
@@ -167,11 +172,13 @@ export const useGameStore = defineStore('gameData', () => {
 
         if (checkPlayer("X")) {
             gameOver.value = true;
+            winner.value = "X";
             return "X";
         }
 
         if (checkPlayer("O")) {
             gameOver.value = true;
+            winner.value = "O";
             return "O";
         }
         return null;
@@ -253,10 +260,13 @@ export const useGameStore = defineStore('gameData', () => {
     function getRandomInRange(min: number, max: number): number {
         return Math.floor(Math.random() * (max - min) + min);
     }
-    
-    function sendAlert(message : string) : string {
-        console.log(message)
-        return message;
+
+    function sendAlert(message: string): void {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: message
+        });
     }
 
     function resetGame(): void {
@@ -272,6 +282,8 @@ export const useGameStore = defineStore('gameData', () => {
     }
 
     return {
+        message,
+        winner,
         board,
         gameOn,
         gameOver,
@@ -292,7 +304,7 @@ export const useGameStore = defineStore('gameData', () => {
         moveGrid,
         checkWin,
         makeAIMove,
-        resetGame, 
+        resetGame,
         sendAlert
     }
 })
