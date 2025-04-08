@@ -24,8 +24,8 @@ const doLogin = () => {
   store.password = password.value;
   Swal.fire({
     icon: 'success',
-    title: 'Welcome!',
-    text: 'Login successful.',
+    title: `Welcome, ${userName}!`,
+    text: 'Good job, you logged in!',
     animation: true,
     timer: 1500,
     showConfirmButton: false,
