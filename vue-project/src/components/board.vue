@@ -1,12 +1,26 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useGameStore } from '../stores/gameStore';
 import { useCanMove } from '../composables/gameStatus';
+import router from '../router';
+import { useRoute } from 'vue-router';
+
+const route = useRoute(); 
 
 const { canMove } = useCanMove(); 
 // todo: midagi on vaja, mis muudaks seda canmove, mingi watcher mis vaatab iga kord kui ta muutub, 
 // siis kas ta on AI ja kas gamemode klapib
 // ja kui on siis on false ja muidu on true
+// ja gamestores ka
+
+onMounted(() => {
+  const gameMode = route.params.gamemode;
+  if (gameMode === 'singleplayer') {
+    gameStore.singlePlayer = true;
+  } else if (gameMode === 'multiplayer') {
+    gameStore.singlePlayer = false;
+  }
+})
 
 
 const gameStore = useGameStore();

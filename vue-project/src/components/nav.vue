@@ -16,10 +16,10 @@ const router = useRouter();
     <div class="nav-container">
       <ul>
         <li class="nav-item">
-          <RouterLink class="nav-link" to="/" @click="{ gameStore.resetGame(); }" >Houm</RouterLink> <!--TODO: vb see mangu end screenile-->
+          <RouterLink class="nav-link" :to="{ name: 'Beginning'}" @click="{ gameStore.resetGame(); }" >Houm</RouterLink> <!--TODO: vb see mangu end screenile-->
         </li>
         <li v-if="!userStore.userName" class="nav-item">
-          <RouterLink class="nav-link" to="/Login">Log in</RouterLink>
+          <RouterLink class="nav-link" :to="{ name: 'Login'}" >Log in</RouterLink>
         </li>
         <li v-if="userStore.userName" class="nav-item">
           <RouterLink class="nav-link" :to="{ name: 'Game', params: { gamemode: 'singleplayer'}}">Play game</RouterLink>

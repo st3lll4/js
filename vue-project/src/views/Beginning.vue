@@ -14,7 +14,8 @@ const gameStore = useGameStore();
     <hr />
     <div class="my-2">
       This is a Tic Tac Two game built by
-      <a href="https://github.com/st3lll4">Stella Tukia</a>. As much as I would
+      <a href="https://github.com/st3lll4">Stella Tukia.</a>
+      <br>As much as she would
       like to take credit for creating this <strong>amazing</strong> game, the
       real geniuses behind it are
       <a href="https://gamescrafters.berkeley.edu/games.php?game=tictactwo"
@@ -39,7 +40,7 @@ const gameStore = useGameStore();
         </div>
         <div class="my-2">
           Each player takes turns placing one of their pieces on any empty cell
-          within the 3x3 grid.
+          within the 3x3 grid. You have <strong>5 seconds to make a move</strong>.
         </div>
         <div class="my-2">
           Once each player has placed at least <strong>2</strong> of their
@@ -72,7 +73,7 @@ const gameStore = useGameStore();
         </div>
       </div>
       <div v-if="userStore.userName != ''" class="card-buttons">
-        <!---vaja lugeda mangu alguses parameeter ja siis selle jargi panna gamemode-->
+        <!---todo: vaja lugeda mangu alguses parameeter ja siis selle jargi panna gamemode-->
         <RouterLink
           class="btn"
           :to="{ name: 'Game', params: { gamemode: 'singleplayer' } }"
@@ -88,7 +89,7 @@ const gameStore = useGameStore();
         </RouterLink>
       </div>
       <div class="card-buttons" v-else> 
-        <div class="btn disabled">Log in first to play!</div>
+        <RouterLink class="btn" :to="{name : 'Login'}">Log in first to play!</RouterLink>
       </div>
     </div>
   </div>
@@ -136,6 +137,7 @@ a:hover {
   padding: 1.5rem;
   transition: 0.2s ease;
   width: 90%;
+  cursor: pointer;
 }
 
 .btn:hover {
@@ -143,4 +145,15 @@ a:hover {
   border: 1px solid rgb(77, 113, 232);
   color: rgb(77, 113, 232);
 }
+
+@media screen and (max-width: 600px) {
+    .content {
+        flex-direction: column;
+    }
+    .card-rules, .card-buttons {
+        width: 100%;
+        margin: 1rem 0;
+    }
+}
+
 </style>

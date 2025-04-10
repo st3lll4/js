@@ -12,8 +12,8 @@ export const useGameStore = defineStore('gameData', () => {
     const gameOn = ref(false)
     const gameOver = ref(false)
     const movingPlayer = ref<Player>("X")
-    const singlePlayer = ref(true)
-    const removingPiece = ref(false)
+    const singlePlayer = ref()
+    const removingPiece = ref(false) // todo: ..................
 
     const xPieces = ref(4)
     const OPieces = ref(4)
@@ -78,7 +78,7 @@ export const useGameStore = defineStore('gameData', () => {
     }
 
     function moveGrid(direction: 'up' | 'down' | 'left' | 'right') {
-        if (xPieces.value <= 2 && OPieces.value <= 2) {
+        if ((movingPlayer.value === 'X' && xPieces.value <= 2) || (movingPlayer.value === 'O' && OPieces.value <= 2)) {
             switch (direction) {
                 case 'up':
                     if (gridStartX.value > 0) {
