@@ -113,13 +113,19 @@ watch(() => gameStore.movingPlayer, (newvalue) => {
     }
 })
 
-watch(() => gameStore.board, (newvalue) => {
+watch(() => gameStore.board, () => {
     if (gameStore.board !== ([[], [], [], [], []])) {
         startTimer();
     }
 })
 
-watch(() => gameStore.removingPiece, (removing) => {
+watch(() => gameStore.moveMade, () => {
+    if (gameStore.moveMade === true) {
+        startTimer();
+    }
+})
+
+watch(() => gameStore.removingPiece, (removing) => { // todo: siin on vaja panna canmove
     if (removing) {
         stopTimer();
     }

@@ -22,7 +22,7 @@ const router = useRouter();
           <RouterLink class="nav-link" to="/Login">Log in</RouterLink>
         </li>
         <li v-if="userStore.userName" class="nav-item">
-          <RouterLink class="nav-link" :to="{ name: 'Game'}">Play game</RouterLink>
+          <RouterLink class="nav-link" :to="{ name: 'Game', params: { gamemode: 'singleplayer'}}">Play game</RouterLink>
         </li>
         <li v-if="userStore.userName" class="nav-item">
           <a @click="() => { userStore.userName = ''; router.push('/Login'); gameStore.resetGame(); }" class="nav-link">Log out</a>

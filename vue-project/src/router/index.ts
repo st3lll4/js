@@ -17,7 +17,7 @@ const routes = [
         props: true,
     },
     {
-        path: "/game",
+        path: "/game/:gamemode",
         name: "Game",
         component: Game,
         props: true,
@@ -27,8 +27,7 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
-  })
+  })  
   
 
-  
 export default router

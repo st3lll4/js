@@ -53,9 +53,6 @@ export const useGameStore = defineStore('gameData', () => {
             showMoveError();
         }
         checkWin();
-        if (gameOver.value) {
-            sendAlert("GAME OVER BITCHES!")
-        };
     }
 
     function isValidMove(x: number, y: number): boolean {
