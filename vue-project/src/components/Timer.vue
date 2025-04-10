@@ -92,7 +92,7 @@ watch(() => gameStore.gameOver, (gameOver) => {
             color: "#716add",
             backdrop: `
     rgba(0,0,123,0.4)
-    url("../assets/images/nyan-cat.gif")
+    url("./nyan-cat.gif")
     left top
     no-repeat
   `
