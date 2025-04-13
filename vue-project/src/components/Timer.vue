@@ -58,7 +58,7 @@ function stopTimer(): void {
 }
 
 function startGame() {
-    gameStore.resetGame(); // todo: miskiparast ei toota
+    gameStore.resetGame(); 
     isGlowing.value = true;
 
     gameStarted.value = true;
@@ -120,8 +120,8 @@ watch(() => gameStore.movingPlayer, (newPlayer) => {
     }
 })
 
-watch(() => gameStore.board, () => {
-    if (gameStore.board !== ([[], [], [], [], []])) {
+watch(() => gameStore.board, (board) => {
+    if (board !== ([[], [], [], [], []])) {
         startTimer();
     }
 })

@@ -14,7 +14,7 @@ export const useGameStore = defineStore('gameData', () => {
     const gameOver = ref(false)
     const movingPlayer = ref<Player>("X")
     const singlePlayer = ref()
-    const removingPiece = ref(false) // todo: ..................
+    const removingPiece = ref(false)
 
     const xPieces = ref(4)
     const OPieces = ref(4)
