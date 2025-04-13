@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Game from "../views/Game.vue";
 import Beginning from "../views/Beginning.vue";
 
-const base = (import.meta as any).env.BASE_URL || '/';
+const base = '/js/vue/';
 
 const routes = [
     {
@@ -29,7 +29,7 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(base),
     routes,
-  })  
+})  
   
 
 export default router
