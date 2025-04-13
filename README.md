@@ -19,4 +19,5 @@ kui sa otsid siit c# projekti, siis see on githubis eraldi
 ma ei taha enam kunagi tic tac two'st midagi kuulda. 
 
 - [Vanilla JS projekt](https://st3lll4.github.io/js/vanillajs/)  
-- [TypeScript projekt](https://st3lll4.github.io/js/my-ts-app/dist/)  
+- [TypeScript projekt](https://st3lll4.github.io/js/my-ts-app/dist/) 
+- [Vue projekt](https://st3lll4.github.io/js/vue-project/dist/)
