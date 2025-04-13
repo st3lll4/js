@@ -8,7 +8,7 @@
   "build": "vite build",
   "preview": "vite preview",
   "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist -o origin -b gh-pages -e js/vue"
+  "deploy": "gh-pages -d dist -o origin -b gh-pages -e js/vue-project"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
