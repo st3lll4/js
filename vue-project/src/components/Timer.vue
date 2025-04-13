@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import router from '../router';
 
 const { gameStarted } = useGameStatus();
+const { canMove } = useCanMove();
 
 watch(gameStarted, (gameStarted) => {
     if (gameStarted) {
@@ -15,7 +16,7 @@ watch(gameStarted, (gameStarted) => {
 
 const gameStore = useGameStore();
 
-const countdown = ref(5);
+const countdown = ref(9);
 const isGlowing = ref(false);
 
 let timerInterval: ReturnType<typeof setInterval> | undefined = undefined;
@@ -31,12 +32,16 @@ function startTimer(): void {
         if (countdown.value === 0) {
             Swal.fire("you didnt move, sleepy! switching players")
             gameStore.switchPlayer();
-            countdown.value = 5;
+            countdown.value = 9;
         }
 
         if (gameStore.singlePlayer && gameStore.movingPlayer === "O") {
+            canMove.value = false;
+            
             gameStore.makeAIMove();
-            countdown.value = 5;
+            
+            countdown.value = 9;
+            canMove.value = true;
         }
 
         if (gameStore.gameOver) {
@@ -53,7 +58,7 @@ function stopTimer(): void {
 }
 
 function startGame() {
-    gameStore.resetGame(); // miskiparast ei toota
+    gameStore.resetGame(); // todo: miskiparast ei toota
     isGlowing.value = true;
 
     gameStarted.value = true;
@@ -99,6 +104,7 @@ watch(() => gameStore.gameOver, (gameOver) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 gameStore.resetGame();
+                canMove.value = true;
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 router.push('/');
             }
@@ -107,9 +113,10 @@ watch(() => gameStore.gameOver, (gameOver) => {
     }
 });
 
-watch(() => gameStore.movingPlayer, (newvalue) => {
-    if (newvalue) {
+watch(() => gameStore.movingPlayer, (newPlayer) => {
+    if (newPlayer) {
         startTimer();
+        canMove.value = !(gameStore.singlePlayer && newPlayer === "O");
     }
 })
 
@@ -125,12 +132,14 @@ watch(() => gameStore.moveMade, () => {
     }
 })
 
-watch(() => gameStore.removingPiece, (removing) => { // todo: siin on vaja panna canmove
+watch(() => gameStore.removingPiece, (removing) => {
     if (removing) {
         stopTimer();
+        canMove.value = true; 
     }
     if (!removing) {
         startTimer();
+        canMove.value = !(gameStore.singlePlayer && gameStore.movingPlayer === "O");
     }
 })
 </script>

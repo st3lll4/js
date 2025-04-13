@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import Swal from 'sweetalert2';
+import { getTimer } from '../../../my-ts-app/src/ui';
 
 export const useGameStore = defineStore('gameData', () => {
     type Player = "X" | "O";
@@ -42,17 +43,25 @@ export const useGameStore = defineStore('gameData', () => {
             } else {
                 OPieces.value--;
             }
-            console.log(removingPiece.value)
             removingPiece.value = false;
-            console.log(removingPiece.value)
             switchPlayer();
-        } else if (isValidMove(x, y) && board.value[x][y] === movingPlayer.value) {
+        } else if (board.value[x][y] === movingPlayer.value && getMovingPlayersPiecesLeft() <= 2) {
             removePiece(x, y);
         }
         else {
             showMoveError();
         }
         checkWin();
+    }
+
+    function getMovingPlayersPiecesLeft() : number {
+        if (movingPlayer.value === 'X') {
+            return xPieces.value;
+        }
+        if (movingPlayer.value === 'O') {
+            return OPieces.value;
+        }
+        return 0;
     }
 
     function isValidMove(x: number, y: number): boolean {
@@ -261,7 +270,6 @@ export const useGameStore = defineStore('gameData', () => {
     function sendAlert(message: string): void {
         Swal.fire({
             icon: "error",
-            title: "Oops...",
             text: message
         });
     }

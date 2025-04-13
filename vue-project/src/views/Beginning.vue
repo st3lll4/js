@@ -40,7 +40,7 @@ const gameStore = useGameStore();
         </div>
         <div class="my-2">
           Each player takes turns placing one of their pieces on any empty cell
-          within the 3x3 grid. You have <strong>5 seconds to make a move</strong>.
+          within the 3x3 grid. You have <strong>10 seconds to make a move</strong>.
         </div>
         <div class="my-2">
           Once each player has placed at least <strong>2</strong> of their
@@ -73,7 +73,6 @@ const gameStore = useGameStore();
         </div>
       </div>
       <div v-if="userStore.userName != ''" class="card-buttons">
-        <!---todo: vaja lugeda mangu alguses parameeter ja siis selle jargi panna gamemode-->
         <RouterLink
           class="btn"
           :to="{ name: 'Game', params: { gamemode: 'singleplayer' } }"

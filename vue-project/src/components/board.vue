@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useGameStore } from '../stores/gameStore';
 import { useCanMove } from '../composables/gameStatus';
-import router from '../router';
 import { useRoute } from 'vue-router';
 
 const route = useRoute(); 
-
+const gameStore = useGameStore();
 const { canMove } = useCanMove(); 
-// todo: midagi on vaja, mis muudaks seda canmove, mingi watcher mis vaatab iga kord kui ta muutub, 
-// siis kas ta on AI ja kas gamemode klapib
-// ja kui on siis on false ja muidu on true
-// ja gamestores ka
+
+watch([() => gameStore.movingPlayer, () => gameStore.removingPiece, () => gameStore.gameOver], 
+  ([currentPlayer, isRemoving, isGameOver]) => {
+    canMove.value = !(
+      (currentPlayer === "O" && gameStore.singlePlayer) || 
+      isGameOver
+    );
+
+    if (isRemoving) {
+      canMove.value = true; 
+    }
+})
 
 onMounted(() => {
   const gameMode = route.params.gamemode;
@@ -20,10 +27,9 @@ onMounted(() => {
   } else if (gameMode === 'multiplayer') {
     gameStore.singlePlayer = false;
   }
+  canMove.value = true;
 })
 
-
-const gameStore = useGameStore();
 
 function handleMove(row : number, col : number) {
   gameStore.makeAMove(row, col);
@@ -32,7 +38,11 @@ function handleMove(row : number, col : number) {
 </script>
 
 <template>
-  <div class="board">
+  <div :class="['board',
+    {
+      'disabled': !canMove
+    }
+  ]">
     <div v-for="(row, rowIndex) in gameStore.board" :key="rowIndex" class="row">
       <div v-for="(col, columnIndex) in gameStore.board" 
         :key="`${rowIndex},${columnIndex}`" 
@@ -80,6 +90,10 @@ function handleMove(row : number, col : number) {
 .grid-sq {
   background-color: #3C75D9;
   color: #ecf3ff;
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 </style>

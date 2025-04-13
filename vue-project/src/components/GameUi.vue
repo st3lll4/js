@@ -3,11 +3,13 @@ import { useGameStore } from '../stores/gameStore';
 import router from '../router';
 import Timer from './Timer.vue';
 import { useGameStatus } from '../composables/gameStatus';
+import { useCanMove } from '../composables/gameStatus';
 
 const { gameStarted } = useGameStatus();
 
 const gameStore = useGameStore();
 
+const { canMove } = useCanMove(); 
 
 
 </script>
@@ -34,7 +36,11 @@ const gameStore = useGameStore();
         <div class="ui-info middle" v-else> 
             click on timer to start
         </div>
-        <div class="arrows">
+        <div :class="['arrows',
+            {
+                'disabled': !canMove
+            }
+            ]">
             <img @click="gameStore.moveGrid('up')" src="../assets/images/up.png" alt="up">
             <div class="horizontal-arrows">
                 <img @click="gameStore.moveGrid('left')" src="../assets/images/left.png" alt="left">
@@ -135,6 +141,10 @@ img {
         font-size: smaller;
         min-width: 3rem;
     }
+}
+
+.disabled {
+    pointer-events: none;
 }
 
 </style>
