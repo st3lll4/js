@@ -1,8 +1,8 @@
 export default class kaverBingo {
 
 availablePhrases : string[] = [
-    'soovitab funktsionaalprogrammeerimise kursust',
-    'programmeerimine on lihtne',
+    'soovitab funktsionaal-program-meerimise kursust',
+    'program-meerimine on lihtne',
     '5min paus = 20min paus',
     'küsib Miku abi',
     'küsib Mikult mingi x projekti kohta, mida nad y aastat tagasi tegid',
@@ -12,7 +12,7 @@ availablePhrases : string[] = [
     'kulutame aega mingi fun facti arutamise peale',
     'page käed koodi',
     'mainib tunniplaani rakendust',
-    'ütleb, et uus generatsioon programmeerijaid on doomed',
+    'ütleb, et uus generatsioon program-meerijaid on doomed',
     'Bruno teeb mänguasjaga piiksu',
     'tegin Brunole pai',
     'kohal on rohkem kui või täpselt 15 inimest',

@@ -22,7 +22,7 @@ const bingoBoard = () => { // setstatele sama objekti tagasi andes asi ei tööt
             <div key={i} className="bingo-row">
               {row.map((cell, j) => (
                 <div key={j} className="bingo-cell">
-                  {cell}
+                  {i === 2 && j === 2 ? "FREE" : cell}
                 </div>
               ))}
             </div>
