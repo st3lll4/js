@@ -42,18 +42,28 @@ availablePhrases : string[] = [
 public shufflePhrases(phrases : string[]) {
     let currentI : number = phrases.length;
 
+    let shuffled = [...phrases];
+
     while (currentI != 0) {
         let randomI : number = Math.floor(Math.random() * currentI);
         currentI--;
 
-        [phrases[currentI], phrases[randomI]] = [phrases[randomI], phrases[currentI]]
-
+        // knuth shuffle
+        [shuffled[currentI], shuffled[randomI]] = [shuffled[randomI], shuffled[currentI]]
     }
+    return shuffled;
 }
 
 getBingoBoard() : string[][] {
     let result : string[][] = [[], [], [], [], []];
-    let boardcontent = this.shufflePhrases(this.availablePhrases);
+    let shuffledPhrases = this.shufflePhrases(this.availablePhrases);
+
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 5; j++) {
+            result[i][j] = shuffledPhrases[i * 5 + j]
+        }
+    }
+
     return result;
 }
 

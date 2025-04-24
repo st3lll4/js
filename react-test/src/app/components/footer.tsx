@@ -4,7 +4,7 @@ export default function Footer() {
     return <>
 <footer className="footer text-muted">
     <div className="container">
-        WAaaa
+        by Stella to practise react 
     </div>
 </footer>
 </>

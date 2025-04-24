@@ -1,23 +1,35 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import kaverBingo from "../bingoStore";
+import kaverBingo from "../kaverBingo";
 
 const bingoBoard = () => { // setstatele sama objekti tagasi andes asi ei tööta, state peaks olema ahel. vt käver
-    const [bingo, setCount] = useState(new kaverBingo())
+    const [bingoBoard, setBingoBoard] = useState<string[][]>([]);
+
+    useEffect(() => {
+      const bingo = new kaverBingo();
+      const board = bingo.getBingoBoard();
+      setBingoBoard(board);
+    }, []); 
+
+
     return (
-        <>
-        <div class="board">
-    <div v-for="(row, rowIndex) in gameStore.board" :key="rowIndex" class="row">
-      <div v-for="(col, columnIndex) in gameStore.board" 
-        :key="`${rowIndex},${columnIndex}`" 
-        :class="['col', {
-        'grid-sq': gameStore.isInGrid(rowIndex, columnIndex)
-        }]" 
-        @click="handleMove(rowIndex, columnIndex)">
-          {{ board[rowIndex][columnIndex] || '' }}
+      <div className="board">
+        {bingoBoard.length === 0 ? (
+          <p>Mõtleb……</p>
+        ) : (
+          bingoBoard.map((row, i) => (
+            <div key={i} className="bingo-row">
+              {row.map((cell, j) => (
+                <div key={j} className="bingo-cell">
+                  {cell}
+                </div>
+              ))}
+            </div>
+          ))
+        )}
       </div>
-    </div>
-  </div></>
-    )
-}
+    );
+  };
 
 export default bingoBoard;
