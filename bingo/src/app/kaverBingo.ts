@@ -10,7 +10,7 @@ availablePhrases : string[] = [
     'Taavi on kohal',
     'Mikk on kohal',
     'kulutame aega mingi fun facti arutamise peale',
-    'page käed koodi',
+    'pange käed koodi',
     'mainib tunniplaani rakendust',
     'ütleb, et uus generatsioon program-meerijaid on doomed',
     'Bruno teeb mänguasjaga piiksu',
@@ -63,7 +63,6 @@ getBingoBoard() : string[][] {
             result[i][j] = shuffledPhrases[i * 5 + j]
         }
     }
-
     return result;
 }
 

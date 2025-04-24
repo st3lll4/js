@@ -12,6 +12,8 @@ const bingoBoard = () => { // setstatele sama objekti tagasi andes asi ei tööt
       setBingoBoard(board);
     }, []); 
 
+    const [clicked]
+
 
     return (
       <div className="board">
@@ -21,7 +23,7 @@ const bingoBoard = () => { // setstatele sama objekti tagasi andes asi ei tööt
           bingoBoard.map((row, i) => (
             <div key={i} className="bingo-row">
               {row.map((cell, j) => (
-                <div key={j} className="bingo-cell">
+                <div @onclick key={j} className="bingo-cell">
                   {i === 2 && j === 2 ? "FREE" : cell}
                 </div>
               ))}
