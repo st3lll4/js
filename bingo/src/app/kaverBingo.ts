@@ -2,6 +2,11 @@ export default class kaverBingo {
 
 availablePhrases : string[] = [
     'soovitab funktsionaal-program-meerimise kursust',
+    'teeme uue projekti', 
+    'mitte midagi ei saa aru',
+    'laku panni',
+    'explaining REST to my wife',
+    'see on disaini küsimus',
     'program-meerimine on lihtne',
     '5min paus = 20min paus',
     'küsib Miku abi',
