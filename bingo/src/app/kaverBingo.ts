@@ -5,6 +5,7 @@ availablePhrases : string[] = [
     'teeme uue projekti', 
     'loengus vähemalt 3 uut projekti',
     'tunned, et mitte midagi ei saa aru',
+    'küsib, mis kell me alustasime või lõpetama peaksime',
     'laku panni',
     'explaining REST to my wife',
     'see on disaini küsimus',
