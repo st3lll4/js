@@ -36,7 +36,7 @@ availablePhrases : string[] = [
     'unustab koodi pushida',
     'C# läheb 15 min üle',
     'ta enda kood läheb katki',
-    'Javascript hakkab 15 min hiljem',
+    'Mobiilid hakkab 15 min hiljem',
     'kohal on vähem kui 15 inimest',
     'unustab Teamsi alustada',
     'esipingi härra hilineb rohkem kui 35 min',
